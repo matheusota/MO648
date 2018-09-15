@@ -1,0 +1,70 @@
+Time to solve model: 0.00616192817688 seconds.
+Subframe: 0
+Solution:
+[18, 7, 9, 14, 3, 5, 19, 12, 8, 1, 10, 6, 15, 17, 13, 4, 11, 2, 20, 16]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 27
+---------------------------------------------------------------------
+Time to solve model: 0.0071120262146 seconds.
+Subframe: 1
+Solution:
+[11, 8, 19, 7, 9, 18, 16, 17, 6, 15, 5, 13, 3, 4, 14, 2, 1, 20, 12, 10]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 26
+---------------------------------------------------------------------
+Time to solve model: 0.0135560035706 seconds.
+Subframe: 2
+Solution:
+[6, 10, 8, 14, 12, 4, 16, 18, 20, 5, 1, 7, 11, 3, 15, 9, 13, 17, 19, 2]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 27
+---------------------------------------------------------------------
+Time to solve model: 0.0072979927063 seconds.
+Subframe: 3
+Solution:
+[8, 9, 17, 18, 1, 11, 19, 10, 3, 2, 12, 20, 13, 4, 5, 7, 14, 6, 15, 16]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 30
+---------------------------------------------------------------------
+Time to solve model: 0.0050208568573 seconds.
+Subframe: 4
+Solution:
+[6, 5, 20, 15, 4, 14, 9, 19, 18, 8, 7, 13, 17, 3, 12, 11, 2, 16, 10, 1]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 27
+---------------------------------------------------------------------
+Time to solve model: 0.00795102119446 seconds.
+Subframe: 5
+Solution:
+[19, 14, 16, 9, 11, 2, 13, 18, 6, 4, 15, 20, 8, 10, 3, 1, 12, 7, 17, 5]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 30
+---------------------------------------------------------------------
+Time to solve model: 0.00512504577637 seconds.
+Subframe: 6
+Solution:
+[8, 16, 2, 5, 10, 18, 13, 15, 4, 7, 17, 12, 20, 14, 6, 1, 9, 3, 19, 11]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 29
+---------------------------------------------------------------------
+Time to solve model: 0.00515389442444 seconds.
+Subframe: 7
+Solution:
+[13, 3, 18, 16, 5, 8, 11, 6, 1, 9, 4, 19, 17, 14, 12, 2, 7, 15, 20, 10]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 27
+---------------------------------------------------------------------
+Time to solve model: 0.0075581073761 seconds.
+Subframe: 8
+Solution:
+[20, 16, 3, 15, 7, 11, 19, 14, 10, 2, 6, 18, 13, 9, 1, 17, 5, 4, 8, 12]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 30
+---------------------------------------------------------------------
+Time to solve model: 0.00542402267456 seconds.
+Subframe: 9
+Solution:
+[4, 13, 8, 9, 17, 18, 5, 1, 10, 6, 14, 15, 2, 19, 7, 11, 3, 12, 20, 16]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 30
+---------------------------------------------------------------------

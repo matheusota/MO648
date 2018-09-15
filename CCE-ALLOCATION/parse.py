@@ -1,7 +1,8 @@
 class User:
     def __init__(self, id, size, userCount):
         self.size = size
-        self.id = id
+        self.id = userCount
+        self.originalId = id
         
         """
         if self.size == 2:
@@ -13,7 +14,8 @@ class User:
         else:
             self.price = self.size
         """
-        self.price = 1.0 / userCount     
+        # self.price = 1.0 / userCount
+        self.price = 1
         self.begins = set()
 
     def printUser(self):
@@ -21,56 +23,51 @@ class User:
         print("\tsize: " + str(self.size))
         print("\tbegins:" + str(self.begins))
 
-def getInput():
+def getInput(frame, R):
     users = {}
     userCount = 0
 
-    file = open("entrada-50-20.txt")
-    i = 0
-    frame = 0
+    file = open("input/entrada-50-" + str(R) + ".txt")
+    currFrame = 0
     for line in file:
+        line = line.replace("-", "")
         line_items = line.split()
 
         if line_items[0] == "Subframe":
-            if i == frame + 1:
+            if currFrame == frame + 1:
                 break
             else:
-                i += 1
-        else:
-            first = False
-            if line_items[0] == "Subframe":
-                continue
-            else:
-                userCount += 1
-                userid = int(line_items[0])
-                begin = None
-                count = None
-                user = None
+                currFrame += 1
 
-                for item in line_items[1:]:
-                    if item == "[":
-                        count = 0
-                        begin = None
+        elif currFrame == frame + 1:
+            userCount += 1
+            userid = int(line_items[0])
+            begin = None
+            size = None
+            user = None
+
+            for item in line_items[1:]:
+                if item == "[":
+                    size = 0
+                    begin = None
+                
+                elif item == "]":
+                    if user == None:
+                        user = User(userid, size, userCount)
+                        user.begins.add(begin)
+                        users[userCount] = user
+                    else:
+                        user.begins.add(begin)
                     
-                    elif item == "]":
-                        if user == None:
-                            user = User(userid, count, userCount)
-                            user.begins.add(begin)
-                            users[userid] = user
-                        else:
-                            user.begins.add(begin)
-                        
-                        count = None
+                    size = None
 
-                    elif count != None:
-                        if begin == None:
-                            begin = int(item)
-                        count += 1
+                elif size != None:
+                    if begin == None:
+                        begin = int(item)
+                    size += 1
 
     #for u in users.keys():
     #    users[u].printUser()
 
     return users
-
-getInput()
                 
