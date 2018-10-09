@@ -18,6 +18,7 @@ def getFilledPositions(solution):
 def getBlockedUsers(solution):
     n = len(solution)
     users = sorted(list((set(solution))))
+    print("blabla " + str(users))
     blocked = 0
     prevUser = 0
 

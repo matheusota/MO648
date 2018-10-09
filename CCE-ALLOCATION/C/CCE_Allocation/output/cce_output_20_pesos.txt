@@ -1,72 +1,70 @@
-Time to solve model: 0.0230700969696 seconds.
+Time to solve model: 0.0134057998657 seconds.
 Subframe: 0
 Solution:
 [28, 28, 2, 9, 14, 7, 21, 21, 12, 10, 17, 8, 39, 39, 39, 39, 22, 22, 20, 4]
 Filled Positions Rate: 20/20
 Number of Blocked Users: 6
 ---------------------------------------------------------------------
-Time to solve model: 0.0169370174408 seconds.
+Time to solve model: 0.0138289928436 seconds.
 Subframe: 1
 Solution:
 [37, 37, 37, 37, 24, 24, 18, 15, 50, 50, 50, 50, 50, 50, 50, 50, 33, 33, 33, 33]
 Filled Positions Rate: 20/20
 Number of Blocked Users: 3
 ---------------------------------------------------------------------
-Time to solve model: 0.0154111385345 seconds.
+Time to solve model: 0.0183107852936 seconds.
 Subframe: 2
 Solution:
 [40, 40, 40, 40, 2, 6, 4, 14, 18, 5, 20, 13, 7, 17, 11, 3, 15, 19, 30, 30]
 Filled Positions Rate: 20/20
 Number of Blocked Users: 13
 ---------------------------------------------------------------------
-Time to solve model: 0.0201668739319 seconds.
+Time to solve model: 0.0213279724121 seconds.
 Subframe: 3
 Solution:
 [29, 29, 18, 8, 9, 19, 20, 12, 4, 11, 3, 5, 31, 31, 27, 27, 6, 7, 23, 23]
 Filled Positions Rate: 20/20
 Number of Blocked Users: 17
 ---------------------------------------------------------------------
-Time to solve model: 0.00793504714966 seconds.
+Time to solve model: 0.00867295265198 seconds.
 Subframe: 4
 Solution:
 [11, 6, 30, 30, 38, 38, 38, 38, 32, 32, 19, 7, 18, 12, 1, 17, 37, 37, 37, 37]
 Filled Positions Rate: 20/20
 Number of Blocked Users: 8
 ---------------------------------------------------------------------
-Time to solve model: 0.0115351676941 seconds.
+Time to solve model: 0.0183720588684 seconds.
 Subframe: 5
 Solution:
 [33, 33, 33, 33, 2, 11, 6, 4, 41, 41, 41, 41, 15, 3, 8, 5, 12, 7, 29, 29]
 Filled Positions Rate: 20/20
 Number of Blocked Users: 14
 ---------------------------------------------------------------------
-Time to solve model: 0.0105378627777 seconds.
+Time to solve model: 0.00601506233215 seconds.
 Subframe: 6
 Solution:
 [48, 48, 48, 48, 48, 48, 48, 48, 15, 17, 7, 1, 33, 33, 33, 33, 9, 8, 19, 11]
 Filled Positions Rate: 20/20
 Number of Blocked Users: 2
 ---------------------------------------------------------------------
-Time to solve model: 0.00628900527954 seconds.
+Time to solve model: 0.00748610496521 seconds.
 Subframe: 7
 Solution:
 [27, 27, 22, 22, 3, 11, 1, 16, 6, 14, 31, 31, 19, 17, 7, 2, 33, 33, 33, 33]
 Filled Positions Rate: 20/20
 Number of Blocked Users: 13
 ---------------------------------------------------------------------
-Time to solve model: 0.0133650302887 seconds.
+Time to solve model: 0.00798583030701 seconds.
 Subframe: 8
 Solution:
 [26, 26, 16, 3, 15, 7, 31, 31, 41, 41, 41, 41, 2, 1, 9, 5, 13, 20, 32, 32]
 Filled Positions Rate: 20/20
 Number of Blocked Users: 7
 ---------------------------------------------------------------------
-Time to solve model: 0.010155916214 seconds.
+Time to solve model: 0.00890684127808 seconds.
 Subframe: 9
 Solution:
 [20, 8, 12, 4, 29, 29, 22, 22, 5, 10, 24, 24, 3, 11, 28, 28, 42, 42, 42, 42]
 Filled Positions Rate: 20/20
 Number of Blocked Users: 11
 ---------------------------------------------------------------------
-Mean Filled: 20.0
-Mean Blocked: 9.4

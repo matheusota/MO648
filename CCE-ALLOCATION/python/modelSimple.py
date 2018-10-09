@@ -30,6 +30,8 @@ try:
         R = int(sys.argv[1])
     
     f = open("output/cce_output_" + str(R) + ".txt", "w")
+    meanFilled = 0
+    meanBlocked = 0
 
     for frame in range(10):
         users = getInput(frame, R)
@@ -74,12 +76,22 @@ try:
                         solutionOrigId[k] = users[i].originalId
                     #print("user " + str(i) + " start at " + str(j) + " ends at " + str(j + users[i].size - 1))
 
+        filled = getFilledPositions(solution)
+        blocked = getBlockedUsers(solution)
+        meanFilled += filled
+        meanBlocked += blocked
+
         f.write("Subframe: " + str(frame) + "\n")
         f.write("Solution:\n")
         f.write(str(solutionOrigId) + "\n")
-        f.write("Filled Positions Rate: " + str(getFilledPositions(solution)) + "/" + str(R) + "\n")
-        f.write("Number of Blocked Users: " + str(getBlockedUsers(solution)) + "\n")
+        f.write("Filled Positions Rate: " + str(filled) + "/" + str(R) + "\n")
+        f.write("Number of Blocked Users: " + str(blocked) + "\n")
         f.write("---------------------------------------------------------------------\n")
+
+    meanFilled = float(meanFilled)/10.0
+    meanBlocked = float(meanBlocked)/10.0
+    f.write("Mean Filled: " + str(meanFilled) + "\n")
+    f.write("Mean Blocked: " + str(meanBlocked) + "\n")
 except GurobiError as e:
     print('Error code ' + str(e.errno) + ": " + str(e))
 

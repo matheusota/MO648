@@ -14,8 +14,8 @@ class User:
         else:
             self.price = self.size
         """
-        # self.price = 1.0 / userCount
-        self.price = 1
+        self.price = 1.0 / userCount * size
+        #self.price = 1
         self.begins = set()
 
     def printUser(self):
