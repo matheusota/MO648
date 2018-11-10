@@ -15,10 +15,10 @@ def getFilledPositions(solution):
     
     return count
 
-def getBlockedUsers(solution):
+def getBlockedUsers(solution, R, positionsFilled, numberOfUsers):
     n = len(solution)
     users = sorted(list((set(solution))))
-    print("blabla " + str(users))
+    users = [u for u in users if u > 0]
     blocked = 0
     prevUser = 0
 
@@ -26,4 +26,7 @@ def getBlockedUsers(solution):
         blocked += (u - prevUser) - 1
         prevUser = u
 
+    if positionsFilled != R:
+        blocked += numberOfUsers - prevUser
+        
     return blocked

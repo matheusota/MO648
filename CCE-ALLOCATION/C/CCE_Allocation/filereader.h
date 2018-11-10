@@ -3,19 +3,22 @@
 #import "user.h"
 #include <string>
 #include <sstream>
+#include <iostream>
+#include <fstream>
 #include <algorithm>
 #include <iterator>
+#include <vector>
 
-template <class Container>
+using namespace std;
 
 class FileReader
 {
     private:
         ifstream ifile;
-        void split1(const std::string& str, Container& cont);
+        void split1(const std::string& str, vector<string> &cont);
 
     public:
-        FileReader(string filename);
+        FileReader(int numberSubframes, int R);
         vector<vector<User>> parseFile();
 };
 

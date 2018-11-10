@@ -1,0 +1,52 @@
+Time to solve model: 0.000542879104614 seconds.
+Subframe: 0
+Filled Positions Rate: 32/40
+Number of Blocked Users: 39
+---------------------------------------------------------------------
+Time to solve model: 0.00183200836182 seconds.
+Subframe: 1
+Filled Positions Rate: 37/40
+Number of Blocked Users: 43
+---------------------------------------------------------------------
+Time to solve model: 0.00178098678589 seconds.
+Subframe: 2
+Filled Positions Rate: 23/40
+Number of Blocked Users: 45
+---------------------------------------------------------------------
+Time to solve model: 0.00176191329956 seconds.
+Subframe: 3
+Filled Positions Rate: 37/40
+Number of Blocked Users: 40
+---------------------------------------------------------------------
+Time to solve model: 0.000519990921021 seconds.
+Subframe: 4
+Filled Positions Rate: 29/40
+Number of Blocked Users: 40
+---------------------------------------------------------------------
+Time to solve model: 0.00170016288757 seconds.
+Subframe: 5
+Filled Positions Rate: 39/40
+Number of Blocked Users: 44
+---------------------------------------------------------------------
+Time to solve model: 0.00159907341003 seconds.
+Subframe: 6
+Filled Positions Rate: 31/40
+Number of Blocked Users: 40
+---------------------------------------------------------------------
+Time to solve model: 0.00157809257507 seconds.
+Subframe: 7
+Filled Positions Rate: 28/40
+Number of Blocked Users: 43
+---------------------------------------------------------------------
+Time to solve model: 0.00161194801331 seconds.
+Subframe: 8
+Filled Positions Rate: 31/40
+Number of Blocked Users: 42
+---------------------------------------------------------------------
+Time to solve model: 0.000699043273926 seconds.
+Subframe: 9
+Filled Positions Rate: 39/40
+Number of Blocked Users: 40
+---------------------------------------------------------------------
+Mean Filled: 32
+Mean Blocked: 41

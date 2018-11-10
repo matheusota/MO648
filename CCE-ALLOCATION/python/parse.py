@@ -16,18 +16,45 @@ class User:
         """
         self.price = 1.0 / userCount * size
         #self.price = 1
-        self.begins = set()
+        self.begins = []
+
+    def getCandidateCoef(self, pos, k):
+        candidates = sorted(list(self.begins))
+
+        if k >= len(candidates):
+            return 0
+
+        if candidates[k] <= pos and candidates[k] + self.size > pos:
+            return 1
+        else:
+            return 0
+    
+    def getPriceForCandidate(self, k):
+        candidates = sorted(list(self.begins))
+
+        if k >= len(candidates):
+            return 0
+        else:
+            return self.price
+    
+    def getCandidateBegin(self, k):
+        candidates = sorted(list(self.begins))
+
+        if k >= len(candidates):
+            return -1
+        else:
+            return candidates[k]
 
     def printUser(self):
         print("User: " + str(self.id))
         print("\tsize: " + str(self.size))
         print("\tbegins:" + str(self.begins))
 
-def getInput(frame, R):
+def getInput(frame, numberOfUsers, R, numberOfSubframes):
     users = {}
     userCount = 0
 
-    file = open("input/entrada-50-" + str(R) + ".txt")
+    file = open("input/entrada-100-" + str(R) + "-" + str(numberOfSubframes) + ".txt")
     currFrame = 0
     for line in file:
         line = line.replace("-", "")
@@ -41,6 +68,9 @@ def getInput(frame, R):
 
         elif currFrame == frame + 1:
             userCount += 1
+            if userCount == numberOfUsers:
+                break
+                
             userid = int(line_items[0])
             begin = None
             size = None
@@ -54,10 +84,10 @@ def getInput(frame, R):
                 elif item == "]":
                     if user == None:
                         user = User(userid, size, userCount)
-                        user.begins.add(begin)
+                        user.begins.append(begin)
                         users[userCount] = user
                     else:
-                        user.begins.add(begin)
+                        user.begins.append(begin)
                     
                     size = None
 

@@ -1,0 +1,72 @@
+Time to solve model: 0.258395910263 seconds.
+Subframe: 0
+Solution:
+[8, 8, 2, 2, 5, 5, 5, 5, 6, 6, 6, 6, 9, 9, 7, 7, 1, 1, 1, 1]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 2
+Objective Value: 2.0---------------------------------------------------------------------
+Time to solve model: 0.101346969604 seconds.
+Subframe: 1
+Solution:
+[5, 5, 5, 5, 3, 6, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 0
+Objective Value: 0.0---------------------------------------------------------------------
+Time to solve model: 0.493699073792 seconds.
+Subframe: 2
+Solution:
+[3, 3, 1, 1, 5, 5, 5, 5, 4, 4, 4, 4, 6, 6, 6, 6, 7, 7, 7, 7]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 1
+Objective Value: 1.0---------------------------------------------------------------------
+Time to solve model: 0.599082946777 seconds.
+Subframe: 3
+Solution:
+[5, 5, 5, 5, 5, 5, 5, 5, 1, 7, 4, 4, 8, 8, 8, 8, 2, 2, 2, 2]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 2
+Objective Value: 2.0---------------------------------------------------------------------
+Time to solve model: 1.72542905807 seconds.
+Subframe: 4
+Solution:
+[4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 2, 2, 6, 6, 6, 6, 5, 5, 5, 5]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 1
+Objective Value: 1.0---------------------------------------------------------------------
+Time to solve model: 0.367092847824 seconds.
+Subframe: 5
+Solution:
+[6, 6, 6, 6, 3, 3, 3, 3, 5, 2, 7, 1, 11, 11, 11, 11, 12, 12, 12, 12]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 4
+Objective Value: 4.0---------------------------------------------------------------------
+Time to solve model: 0.646378993988 seconds.
+Subframe: 6
+Solution:
+[1, 1, 1, 1, 10, 11, 14, 14, 3, 3, 3, 3, 9, 9, 9, 9, 4, 4, 13, 13]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 6
+Objective Value: 6.0---------------------------------------------------------------------
+Time to solve model: 2.18513202667 seconds.
+Subframe: 7
+Solution:
+[3, 3, 3, 3, 3, 3, 3, 3, 5, 5, 5, 5, 1, 1, 2, 2, 8, 8, 6, 4]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 1
+Objective Value: 1.0---------------------------------------------------------------------
+Time to solve model: 0.602396965027 seconds.
+Subframe: 8
+Solution:
+[6, 6, 6, 6, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 4, 4, 4, 4]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 1
+Objective Value: 1.0---------------------------------------------------------------------
+Time to solve model: 1.67542815208 seconds.
+Subframe: 9
+Solution:
+[9, 9, 9, 9, 12, 12, 6, 6, 8, 8, 5, 5, 11, 3, 1, 4, 10, 14, 7, 2]
+Filled Positions Rate: 20/20
+Number of Blocked Users: 1
+Objective Value: 1.0---------------------------------------------------------------------
+Mean Filled: 20
+Mean Blocked: 1

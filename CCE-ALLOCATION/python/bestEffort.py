@@ -2,6 +2,8 @@ from parse import *
 from measures import *
 import time
 import sys
+from solutionStatistics import *
+import random
 
 # this is just the main routine of the best effort scheduler
 def bestEffortScheduler(users, R):
@@ -10,10 +12,10 @@ def bestEffortScheduler(users, R):
     resources = [-1 for _ in range(R)]
 
     for id in userRange:
-        (size, allocated) = allocateUser(id, users, resources)
+        allocated = allocateUser(id, users, resources)
 
         if allocated:
-            slotsFilled += size
+            slotsFilled += users[id].size
         
         if slotsFilled == R:
             break
@@ -22,25 +24,51 @@ def bestEffortScheduler(users, R):
 
 # given a user id, this function will, if possible, allocate the user in the first empty position 
 def allocateUser(id, users, resources):
-    begins = sorted(list(users[id].begins))
-    for b in range(len(begins)):
-        if tryToAllocateUser(b, begins, 0, id, users, resources):
-            return (users[id].size, True)
+    begins = users[id].begins
     
-    return (0, False)
+    for b in begins:
+        if tryToAllocateUser(b, begins, 0, id, users, resources):
+            return True
+
+    return False
+    """
+    tmp = []
+    for b in begins:
+        flag = False
+        for j in range(b, b + users[id].size):
+            if resources[j] != -1:
+                flag = True
+                break
+        
+        if not flag:
+            tmp.append(b)
+
+    #print(tmp)
+    if len(tmp) == 0:
+        return False
+
+    r = random.randint(0, len(tmp) - 1)
+
+    for j in range(tmp[r], tmp[r] + users[id].size):
+        resources[j] = id
+
+    return True
+    """
 
 # this function will try to allocate a user. Note that we use recursion here to backtrack when trying to allocate
 def tryToAllocateUser(b, begins, i, id, users, resources):
     if i == users[id].size:
         return True
 
-    idx = getCCEIndex(b, i, id, users, resources)
+    idx = b + i
+    #idx = getCCEIndex(b, i, id, users, resources)
+    print("allocating at " + str(idx))
 
     if resources[idx] != -1:
         return False
     else:
         if tryToAllocateUser(b, begins, i + 1, id, users, resources):
-            resources[idx] = users[id].originalId
+            resources[idx] = id
             return True
 
 # this implements the hash function to get the index it should try to allocate
@@ -64,36 +92,41 @@ def getY(k, id):
     return y
 
 # main routine
-if len(sys.argv) < 2:
-    print("Please, pass the number of CCE's as a parameter")
-    sys.exit(0)
-else:
-    R = int(sys.argv[1])
+def bestEffort(numberOfUsers, R, numberOfSubframes, graph):
+    if not graph:
+        f = open("output/cce_output_besteffort_" + str(R) + ".txt", "w")
+    solutionStatistics = SolutionStatistics()
 
-f = open("output/cce_output_besteffort_" + str(R) + ".txt", "w")
-meanFilled = 0
-meanBlocked = 0
+    for frame in range(numberOfSubframes):
+        users = getInput(frame, numberOfUsers, R, numberOfSubframes)
 
-for frame in range(10):
-    users = getInput(frame, R)
+        start_time = time.time()
+        resources = bestEffortScheduler(users, R)
+        if not graph:
+            f.write("Time to solve model: " + str(time.time() - start_time) + " seconds.\n")
 
-    start_time = time.time()
-    resources = bestEffortScheduler(users, R)
-    f.write("Time to solve model: " + str(time.time() - start_time) + " seconds.\n")
+        filled = getFilledPositions(resources)
+        blocked = getBlockedUsers(resources, R, filled, numberOfUsers)
+        solutionStatistics.addFilledPositions(filled)
+        solutionStatistics.addBlockedUsers(blocked)
+        solutionStatistics.addMaxId(max(resources))
+        
+        allocatedUsers = list(set(resources))
+        for id in allocatedUsers:
+            if id != -1:
+                solutionStatistics.countUser(users[id])
+        solutionStatistics.addUsers()
 
-    filled = getFilledPositions(resources)
-    blocked = getBlockedUsers(resources)
-    meanFilled += filled
-    meanBlocked += blocked
+        if not graph:
+            f.write("Subframe: " + str(frame) + "\n")
+            f.write("Solution:\n")
+            f.write(str(resources) + "\n")
+            f.write("Filled Positions Rate: " + str(filled) + "/" + str(R) + "\n")
+            f.write("Number of Blocked Users: " + str(blocked) + "\n")
+            f.write("---------------------------------------------------------------------\n")
 
-    f.write("Subframe: " + str(frame) + "\n")
-    f.write("Solution:\n")
-    f.write(str(resources) + "\n")
-    f.write("Filled Positions Rate: " + str(filled) + "/" + str(R) + "\n")
-    f.write("Number of Blocked Users: " + str(blocked) + "\n")
-    f.write("---------------------------------------------------------------------\n")
+    if not graph:
+        f.write("Mean Filled: " + str(solutionStatistics.getFilledPositionMean()) + "\n")
+        f.write("Mean Blocked: " + str(solutionStatistics.getBlockedUsersMean()) + "\n")
 
-meanFilled = float(meanFilled)/10.0
-meanBlocked = float(meanBlocked)/10.0
-f.write("Mean Filled: " + str(meanFilled) + "\n")
-f.write("Mean Blocked: " + str(meanBlocked) + "\n")
+    return solutionStatistics

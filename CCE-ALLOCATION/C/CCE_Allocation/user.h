@@ -1,6 +1,9 @@
 #ifndef USER_H
 #define USER_H
+#include <vector>
+#include <iostream>
 
+using namespace std;
 
 class User
 {
@@ -9,8 +12,10 @@ class User
         int id;
         int originalId;
         double price;
-        set<int> begins;
-        User();
+        vector<int> begins;
+
+        User(int userId);
+        void printUser();
 };
 
 #endif // USER_H
