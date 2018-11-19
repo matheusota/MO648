@@ -8,46 +8,52 @@ int main(int argc, char *argv[])
     Params params;
     readCheckParams(params, argc, argv);
 
-    // read file and put subframes in a vector
-    FileReader fileReader(params.numberSubframes, params.R);
-    vector<vector<User>> subframes = fileReader.parseFile();
+    if(!params.shouldSimulate){
+        // read file and put subframes in a vector
+        FileReader fileReader(params.numberSubframes, params.R);
+        vector<vector<User>> subframes = fileReader.parseFile();
 
-    /*
-    if(params.alg.compare("h") == 0){
+        // execute the chosen algorithm for each subframe
+        int count = 0;
+        for(auto users : subframes){
+            cout << "Subframe " << count << endl;
+            vector<int> solution;
+            auto started = chrono::high_resolution_clock::now();
 
-    }*/
-    // execute the chosen algorithm for each subframe
-    int count = 0;
-    for(auto users : subframes){
-        cout << "Subframe " << count << endl;
-        vector<int> solution;
-        auto started = chrono::high_resolution_clock::now();
+            if(params.alg.compare("h") == 0)
+                solution = Heuristic::execute(users, params.R, 50);
 
-        if(params.alg.compare("h") == 0)
-            solution = Heuristic::execute(users, params.R, 50);
+            else if(params.alg.compare("b") == 0){
+                BRKGAHeuristic brkgaHeuristic;
+                solution = brkgaHeuristic.execute(users, params.R, 50);
+            }
 
-        else if(params.alg.compare("b") == 0){
-            BRKGAHeuristic brkgaHeuristic;
-            solution = brkgaHeuristic.execute(users, params.R, 50);
+            else if(params.alg.compare("e") == 0)
+                solution = SchedulingModel::execute(users, params.R, 50);
+
+            auto done = chrono::high_resolution_clock::now();
+
+            Measures measures;
+            int filledPositions = measures.getFilledPositions(solution);
+            double blocked = measures.getBlockedUsers(solution, params.R, filledPositions, 50);
+
+            cout << "\t Time: " << chrono::duration_cast<chrono::microseconds>(done-started).count() << " us" << endl;
+            cout << "\t Solution [";
+            for(auto id : solution)
+                cout << id << ", ";
+            cout << "]" << endl;
+            cout << "\t Blocked Users: " << blocked << endl;
+
+            count++;
         }
-
+    }
+    else{
+        if(params.alg.compare("h") == 0)
+            Simulator::simulate(params.numberUsers, params.numberSubframes, params.R, Heuristic::execute);
+        else if(params.alg.compare("b") == 0)
+            Simulator::simulate(params.numberUsers, params.numberSubframes, params.R, BRKGAHeuristic::execute);
         else if(params.alg.compare("e") == 0)
-            solution = SchedulingModel::execute(users, params.R, 50);
-
-        auto done = chrono::high_resolution_clock::now();
-
-        Measures measures;
-        int filledPositions = measures.getFilledPositions(solution);
-        double blocked = measures.getBlockedUsers(solution, params.R, filledPositions, 50);
-
-        cout << "\t Time: " << chrono::duration_cast<chrono::microseconds>(done-started).count() << " us" << endl;
-        cout << "\t Solution [";
-        for(auto id : solution)
-            cout << id << ", ";
-        cout << "]" << endl;
-        cout << "\t Blocked Users: " << blocked << endl;
-
-        count++;
+            Simulator::simulate(params.numberUsers, params.numberSubframes, params.R, SchedulingModel::execute);
     }
 
     return 0;
@@ -59,6 +65,7 @@ void readCheckParams(Params &params, int argc, char *argv[])
     params.alg = "";
     params.numberSubframes = 0;
     params.R = 0;
+    params.shouldSimulate = false;
 
     // Read
     for(int i = 1; i < argc; i++){
@@ -77,6 +84,12 @@ void readCheckParams(Params &params, int argc, char *argv[])
             continue;
         }
 
+        if(arg.find("-u") == 0 && next.size() > 0){
+            params.numberUsers = atoi(next.c_str());
+            i++;
+            continue;
+        }
+
         if(arg.find("-r") == 0 && next.size() > 0){
             params.R = atoi(next.c_str());
             i++;
@@ -85,6 +98,11 @@ void readCheckParams(Params &params, int argc, char *argv[])
 
         else if(arg.find("-h") == 0){
             params.alg = "h";
+            continue;
+        }
+
+        else if(arg.find("-s") == 0){
+            params.shouldSimulate = true;
             continue;
         }
 

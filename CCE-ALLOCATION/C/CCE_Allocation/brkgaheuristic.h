@@ -14,31 +14,31 @@ class BRKGAHeuristic
 {
     private:
         // size of population
-        const unsigned p = 20;
+        static constexpr unsigned p = 20;
         // fraction of population to be the elite-set
-        const double pe = 0.20;
+        static constexpr double pe = 0.20;
         // fraction of population to be replaced by mutants
-        const double pm = 0.15;
+        static constexpr double pm = 0.15;
         // probability that offspring inherit an allele from elite parent
-        const double rhoe = 0.70;
+        static constexpr double rhoe = 0.70;
         // number of independent populations
-        const unsigned K = 4;
+        static constexpr unsigned K = 4;
         // number of threads for parallel decoding
-        const unsigned MAXT = 6;
-        // current generation
-        unsigned generation = 0;
+        static constexpr unsigned MAXT = 6;
         // exchange best individuals at every 10 generations
-        const unsigned X_INTVL = 10;
+        static constexpr unsigned X_INTVL = 10;
         // exchange top 4 best
-        const unsigned X_NUMBER = 4;
+        static constexpr unsigned X_NUMBER = 4;
         // max generations to run for 100 gens
-        const unsigned MAX_GENS = 100;
+        static constexpr unsigned MAX_GENS = 100;
         // seed for rng
-        const long unsigned rngSeed = 0;
+        static constexpr long unsigned rngSeed = 0;
 
     public:
-        BRKGAHeuristic();
-        vector<int> execute(vector<User> users, int R, int numberUsers);
+        // current generation
+        static unsigned generation;
+
+        static vector<int> execute(vector<User> users, int R, int numberUsers);
 };
 
 #endif // BRKGAHEURISTIC_H

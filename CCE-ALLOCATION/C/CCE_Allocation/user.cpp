@@ -2,6 +2,8 @@
 
 using namespace std;
 
+User::User(){}
+
 User::User(int userId){
     originalId = userId;
     size = -1;

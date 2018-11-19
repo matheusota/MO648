@@ -1,7 +1,6 @@
 #include "brkgaheuristic.h"
 
-BRKGAHeuristic::BRKGAHeuristic(){
-}
+unsigned BRKGAHeuristic::generation = 0;
 
 vector<int> BRKGAHeuristic::execute(vector<User> users, int R, int numberUsers){
     // initialize the random number generator

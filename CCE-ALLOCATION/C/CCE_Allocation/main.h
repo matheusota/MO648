@@ -12,6 +12,7 @@
 #include <chrono>
 #include "brkgaheuristic.h"
 #include "schedulingmodel.h"
+#include "simulator.h"
 
 using namespace std;
 
@@ -19,7 +20,9 @@ typedef struct structParams
 {
     string alg;
     int numberSubframes;
+    int numberUsers;
     int R;
+    bool shouldSimulate;
 } Params;
 
 int main(int argc, char *argv[]);

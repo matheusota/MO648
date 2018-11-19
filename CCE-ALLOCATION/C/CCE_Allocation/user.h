@@ -14,6 +14,7 @@ class User
         double price;
         vector<int> begins;
 
+        User();
         User(int userId);
         void printUser();
 };
