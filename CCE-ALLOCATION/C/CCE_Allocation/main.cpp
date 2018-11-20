@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
     Params params;
     readCheckParams(params, argc, argv);
 
+    // read input from file
     if(!params.shouldSimulate){
         // read file and put subframes in a vector
         FileReader fileReader(params.numberSubframes, params.R);
@@ -20,16 +21,17 @@ int main(int argc, char *argv[])
             vector<int> solution;
             auto started = chrono::high_resolution_clock::now();
 
-            if(params.alg.compare("h") == 0)
+            if(params.alg.compare("heuristic") == 0)
                 solution = Heuristic::execute(users, params.R, 50);
 
-            else if(params.alg.compare("b") == 0){
-                BRKGAHeuristic brkgaHeuristic;
-                solution = brkgaHeuristic.execute(users, params.R, 50);
-            }
+            else if(params.alg.compare("brkga") == 0)
+                solution = BRKGAHeuristic::execute(users, params.R, 50);
 
-            else if(params.alg.compare("e") == 0)
+            else if(params.alg.compare("exact") == 0)
                 solution = SchedulingModel::execute(users, params.R, 50);
+
+            else if(params.alg.compare("besteffort") == 0)
+                solution = BestEffort::execute(users, params.R, 50);
 
             auto done = chrono::high_resolution_clock::now();
 
@@ -47,13 +49,16 @@ int main(int argc, char *argv[])
             count++;
         }
     }
+    // run simulator to generate input
     else{
-        if(params.alg.compare("h") == 0)
+        if(params.alg.compare("heuristic") == 0)
             Simulator::simulate(params.numberUsers, params.numberSubframes, params.R, Heuristic::execute);
-        else if(params.alg.compare("b") == 0)
+        else if(params.alg.compare("brkga") == 0)
             Simulator::simulate(params.numberUsers, params.numberSubframes, params.R, BRKGAHeuristic::execute);
-        else if(params.alg.compare("e") == 0)
+        else if(params.alg.compare("exact") == 0)
             Simulator::simulate(params.numberUsers, params.numberSubframes, params.R, SchedulingModel::execute);
+        else if(params.alg.compare("besteffort") == 0)
+            Simulator::simulate(params.numberUsers, params.numberSubframes, params.R, BestEffort::execute);
     }
 
     return 0;
@@ -96,23 +101,14 @@ void readCheckParams(Params &params, int argc, char *argv[])
             continue;
         }
 
-        else if(arg.find("-h") == 0){
-            params.alg = "h";
-            continue;
-        }
-
         else if(arg.find("-s") == 0){
             params.shouldSimulate = true;
             continue;
         }
 
-        else if(arg.find("-b") == 0){
-            params.alg = "b";
-            continue;
-        }
-
-        else if(arg.find("-e") == 0){
-            params.alg = "e";
+        else if(arg.find("-a") == 0){
+            params.alg = next;
+            i++;
             continue;
         }
 

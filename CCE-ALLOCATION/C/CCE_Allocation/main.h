@@ -13,6 +13,7 @@
 #include "brkgaheuristic.h"
 #include "schedulingmodel.h"
 #include "simulator.h"
+#include "besteffort.h"
 
 using namespace std;
 
