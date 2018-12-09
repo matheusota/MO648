@@ -22,6 +22,6 @@ class Heuristic
         static void runHeuristic(vector<User> users, int R, int numberUsers, unsigned seed);
 
     public:
-        static vector<int> execute(vector<User> users, int R, int numberUsers);
+        static void execute(vector<User> &users, int R, int numberUsers, Measures &measures);
 };
 #endif // HEURISTIC_H

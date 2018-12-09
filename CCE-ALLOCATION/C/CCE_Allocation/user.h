@@ -12,6 +12,7 @@ class User
         int id;
         int originalId;
         double price;
+        int allocatedIt;
         vector<int> begins;
 
         User();

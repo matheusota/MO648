@@ -4,13 +4,14 @@
 #include <map>
 #include "user.h"
 #include <algorithm>
+#include "measures.h"
 
 using namespace std;
 
 class SchedulingModel
 {
     public:
-        static vector<int> execute(vector<User> users2, int R, int numberUsers);
+        static void execute(vector<User> &users2, int R, int numberUsers, Measures &measures);
 };
 
 #endif // SCHEDULINGMODEL_H

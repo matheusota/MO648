@@ -15,7 +15,8 @@ SOURCES += \
     population.cpp \
     schedulingmodel.cpp \
     simulator.cpp \
-    besteffort.cpp
+    besteffort.cpp \
+    bruteforce.cpp
 
 HEADERS += \
     filereader.h \
@@ -30,7 +31,9 @@ HEADERS += \
     brkgaheuristic.h \
     decoder.h \
     schedulingmodel.h \
+    besteffort.h \
+    bruteforce.h \
     simulator.h \
-    besteffort.h
+    params.h
 
 DISTFILES +=

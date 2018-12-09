@@ -1,45 +1,26 @@
-"""
-Primeiro exercicio: Fazer um programa de simulacao e coletar dados para plotar um grafico retardo medio x utilizacao. 
-A utilizacao e a razao entre a taxa de chegada e a taxa de servico do servidor. Assuma que o intervalo entre chegada 
-de pacotes e exponencialmente distribuido, bem como o tamanho dos pacotes. Entregar relatorio com grafico, codigo 
-fonte e explicacao como derivou intervalo de confianca e qual foi o criterio adotado para eliminar o transiente da 
-simulacao.
-"""
-
 import numpy as np
+import pandas as pd
+import itertools
+import matplotlib.pyplot as plt
+import math
+import random
+import statistics 
+import seaborn as sns
 
-class Simulator():
-    def __init__(self):
-        self.usersCount = 0
+# queue class
+class Queue():
+    def __init__(self, arrivalRate, departureRate):
+        self.usersInQueue = 0
+        self.servicedUsers = 0
         self.currTime = 0
-        self.arrivalParam = 1./3
-        self.departureParam = 1./4
+        self.arrivalParam = 1./arrivalRate
+        self.departureParam = 1./departureRate
         self.arrivalTime = self.getRandomTime(self.arrivalParam)
         self.departureTime = float("inf")
-        self.arrivalsCount = 0
-        self.departuresCount = 0
-        self.totalWaitingTime = 0 
-
+        self.totalWaitingTime = 0
+    
     def getRandomTime(self, param):
-        return np.random.exponential(param)
-
-    def handleArrivalEvent(self):
-        self.usersCount += 1
-        self.arrivalsCount += 1
-
-        if self.usersCount <= 1:
-            self.departureTime = self.currTime + self.getRandomTime(self.departureParam)
-
-        self.arrivalTime = self.currTime + self.getRandomTime(self.arrivalParam)
-
-    def handleDepartureEvent(self):
-        self.usersCount -= 1
-        self.departuresCount += 1
-
-        if self.usersCount > 0:
-            self.departureTime = self.currTime + self.getRandomTime(self.departureParam)
-        else:
-            self.departureTime = float("inf")
+        return random.expovariate(param)
 
     def goToNextEvent(self):
         if self.arrivalTime < self.departureTime:
@@ -51,16 +32,75 @@ class Simulator():
             self.currTime = self.departureTime
             self.handleDepartureEvent()
     
-    def simulate(self, numberOfEvents):
-        for i in range(numberOfEvents):
-            self.goToNextEvent()
-    
-    def printData(self):
-        print("departures " + str(self.departuresCount))
-        print("arrivals " + str(self.arrivalsCount))
-        print("total time " + str(self.totalWaitingTime))
+    def handleArrivalEvent(self):
+        self.usersInQueue += 1
 
-np.random.seed(10)
-s = Simulator()
-s.simulate(1000)
-s.printData()
+        if self.usersInQueue <= 1:
+            self.departureTime = self.currTime + self.getRandomTime(self.departureParam)
+
+        self.arrivalTime = self.currTime + self.getRandomTime(self.arrivalParam)
+
+    def handleDepartureEvent(self):
+        self.usersInQueue -= 1
+        self.servicedUsers += 1
+        
+        if self.usersInQueue > 0:
+            self.departureTime = self.currTime + self.getRandomTime(self.departureParam)
+        else:
+            self.departureTime = float("inf")
+
+    def getMeanDelay(self):
+        if self.servicedUsers == 0:
+            return 0
+        else:
+            return self.totalWaitingTime / self.servicedUsers
+
+# the main code
+
+q = Queue(0.25, 0.5)
+
+df = pd.DataFrame(columns=["events executed", "mean delay"])
+
+
+def getMean(L):
+    return sum(L) / len(L)
+
+def getErr(L):
+    return (1.96) * (statistics.stdev(L) / math.sqrt(len(L)))
+
+means = []
+errs = []
+utilization = []
+departureRate = 1
+
+# we change the arrival rate to change the utilization
+for x in range(5, 100, 5):
+    arrivalRate = x / 100.
+    L = []
+    
+    # run a bunch of simulations and collect mean delays and errors
+    for j in range(100):
+        q = Queue(arrivalRate, departureRate)
+        
+        for _ in range(1000):
+            q.goToNextEvent()
+    
+        L.append(q.getMeanDelay())
+    
+    utilization.append(round(arrivalRate / departureRate, 2))
+    means.append(getMean(L))
+    errs.append(getErr(L))
+
+# create a pandas dataframe for the collected data
+aux = {}
+aux["utilization"] = utilization
+aux["mean delay"] = means
+df = pd.DataFrame(aux)
+
+# plot the means using seaborn
+ax = sns.pointplot(x="utilization", y="mean delay", data=df, color="limegreen", ci = 95)
+
+# plot confidence intervals using matplotlib
+ax.errorbar(df.index, means, yerr=errs, fmt="-", color="limegreen", capsize = 3, elinewidth = 2)
+
+plt.show()

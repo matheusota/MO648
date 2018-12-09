@@ -64,52 +64,52 @@ int Simulator::Calc_Y(int k, int RNTI){
   return y;
 }
 
-void Simulator::simulate(int nUEs, int nSubframes, int nCCEs, vector<int> (*scheduler)(vector<User>, int, int)){
+void Simulator::simulate(Params &params, int numberUsers, void (*scheduler)(vector<User>&, int, int, Measures&)){
     // set seed
     int seed = 0;
 
     // create an array of UEs
-    vector<User> users(nUEs);
-    for(int i = 0; i < nUEs; i++){
+    vector<User> users(numberUsers);
+    for(int i = 0; i < numberUsers; i++){
         users[i].originalId = i + 1;
         users[i].price = 1;
     }
 
     // set the pdcch formats
-    setAggregationLevel(nUEs, users, 0.40, 0.25, 0.20, 0.15);
+    setAggregationLevel(numberUsers, users, 0.40, 0.25, 0.20, 0.15);
 
     // set the begins
-    setBegins(users, nCCEs);
+    setBegins(users, params.R);
 
     // now we generate the subframes
-    for (nSubframe = 0 ; nSubframe < nSubframes ; nSubframe++) {
+    for (nSubframe = 0 ; nSubframe < params.numberSubframes ; nSubframe++) {
         cout << "Subframe " << nSubframe << endl;
 
-        vector<int> solution;
         auto started = chrono::high_resolution_clock::now();
 
         // shuffle the UEs
         shuffle(users.begin(), users.end(), default_random_engine(seed));
 
         // assign ids
-        for(int i = 0; i < nUEs; i++)
+        for(int i = 0; i < numberUsers; i++)
             users[i].id = i + 1;
 
-        solution = scheduler(users, nCCEs, nUEs);
+        Measures measures(numberUsers, params.R);
+        scheduler(users, params.R, numberUsers, measures);
 
         auto done = chrono::high_resolution_clock::now();
 
         // print measures
-        Measures measures;
-        int filledPositions = measures.getFilledPositions(solution);
-        double blocked = measures.getBlockedUsers(solution, nCCEs, filledPositions, 50);
+        measures.computeBlockedUsers();
 
         cout << "\t Time: " << chrono::duration_cast<chrono::microseconds>(done-started).count() << " us" << endl;
         cout << "\t Solution [";
-        for(auto id : solution)
+        for(auto id : measures.solution)
             cout << id << ", ";
         cout << "]" << endl;
-        cout << "\t Blocked Users: " << blocked << endl;
+        cout << "\t Blocked Users: " << measures.getBlockedUsers() << endl;
 
+        // write to file
+        generateOutput(params, numberUsers, measures);
     }
 }

@@ -16,7 +16,7 @@ bool BestEffort::tryToAllocate(User &user, SegTree &solutionTree){
     return false;
 }
 
-vector<int> BestEffort::execute(vector<User> users, int R, int numberUsers){
+void BestEffort::execute(vector<User> &users, int R, int numberUsers, Measures &measures){
     vector<int> solution(R);
     vector<User> users2(users.begin(), users.begin() + numberUsers);
     bool solved = false;
@@ -43,6 +43,5 @@ vector<int> BestEffort::execute(vector<User> users, int R, int numberUsers){
     // build solution from segtree
     for(int i = 0; i < R; i++)
         solution[i] = solutionTree.getLeaf(i);
-
-    return solution;
+    measures.setSolution(solution);
 }

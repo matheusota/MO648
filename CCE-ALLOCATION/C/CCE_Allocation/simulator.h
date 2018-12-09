@@ -9,6 +9,8 @@
 #include <vector>
 #include <chrono>
 #include "measures.h"
+#include "main.h"
+#include "params.h"
 
 using namespace std;
 
@@ -25,7 +27,7 @@ class Simulator
     public:
         static int nSubframe;
 
-        static void simulate(int nUEs, int nSubframes, int nCCEs, vector<int> (*scheduler)(vector<User>, int, int));
+        static void simulate(Params &params, int numberUsers, void (*scheduler)(vector<User>&, int, int, Measures&));
 };
 
 #endif // SIMULATOR_H

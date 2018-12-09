@@ -1,7 +1,8 @@
 #include "decoder.h"
 
-Decoder::Decoder(vector<User> users, int R){
+Decoder::Decoder(vector<User> users, int numberUsers, int R){
     this->users = users;
+    this->numberUsers = numberUsers;
     this->R = R;
 }
 
@@ -41,11 +42,7 @@ double Decoder::decode(const vector<double> &chromosome) const{
     vector<int> solution = this->convertToSolution(chromosome);
 
     // get number of blocked users
-    Measures measures;
-    int filledPositions = measures.getFilledPositions(solution);
-    double blocked = measures.getBlockedUsers(solution, R, filledPositions, 50);
-
-    return blocked;
-
-    return 1;
+    Measures measures(numberUsers, R, solution);
+    measures.computeBlockedUsers();
+    return measures.getBlockedUsers();
 }

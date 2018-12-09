@@ -1,8 +1,28 @@
 #include "measures.h"
 
-Measures::Measures(){}
+Measures::Measures(int numberOfUsers, int R){
+    this->numberOfUsers = numberOfUsers;
+    this->R = R;
+}
 
-int Measures::getFilledPositions(vector<int> &solution){
+Measures::Measures(int numberOfUsers, int R, vector<int> &solution){
+    this->numberOfUsers = numberOfUsers;
+    this->R = R;
+    this->solution = solution;
+}
+
+void Measures::setSolution(vector<int> &solution){
+    this->solution = solution;
+}
+
+// count number of filled positions and then use this to compute number of blocked users
+void Measures::computeBlockedUsers(){
+    setFilledPositions();
+    setBlockedUsers();
+}
+
+// count the number of position filled
+void Measures::setFilledPositions(){
     int count = 0;
 
     for(auto s : solution){
@@ -10,10 +30,11 @@ int Measures::getFilledPositions(vector<int> &solution){
             count++;
     }
 
-    return count;
+    filledPositions = count;
 }
 
-int Measures::getBlockedUsers(vector<int> &solution, int R, int filledPositions, int numberUsers){
+// count number of blocked users
+void Measures::setBlockedUsers(){
     // convert to a set and sort
     vector<int> solution2;
     unordered_set<int> S;
@@ -35,7 +56,23 @@ int Measures::getBlockedUsers(vector<int> &solution, int R, int filledPositions,
 
     // not all positions were filled, we need to add the remaining users to blocked
     if(filledPositions != R)
-        blocked += numberUsers - prevUser;
+        blocked += numberOfUsers - prevUser;
 
-    return blocked;
+    blockedUsers = blocked;
+}
+
+double Measures::getBlockedRate(){
+    return ((double) blockedUsers)/((double) numberOfUsers);
+}
+
+double Measures::getResourceRate(){
+    return ((double) filledPositions)/((double) R);
+}
+
+int Measures::getBlockedUsers(){
+    return blockedUsers;
+}
+
+int Measures::getFilledPositions(){
+    return filledPositions;
 }

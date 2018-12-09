@@ -38,7 +38,7 @@ class BRKGAHeuristic
         // current generation
         static unsigned generation;
 
-        static vector<int> execute(vector<User> users, int R, int numberUsers);
+        static void execute(vector<User> &users, int R, int numberUsers, Measures &measures);
 };
 
 #endif // BRKGAHEURISTIC_H

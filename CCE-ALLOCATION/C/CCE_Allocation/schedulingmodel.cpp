@@ -1,6 +1,6 @@
 #include "schedulingmodel.h"
 
-vector<int> SchedulingModel::execute(vector<User> users2, int R, int numberUsers){
+void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Measures &measures){
     // copy users
     vector<User> users(users2.begin(), users2.begin() + numberUsers);
 
@@ -82,6 +82,6 @@ vector<int> SchedulingModel::execute(vector<User> users2, int R, int numberUsers
         cout << "Error during optimization" << endl;
     }
 
-    return solution;
+    measures.setSolution(solution);
 }
 

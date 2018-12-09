@@ -100,22 +100,21 @@ void Heuristic::runHeuristic(vector<User> users, int R, int numberUsers, unsigne
         solution[i] = solutionTree.getLeaf(i);
 
     // get measures
-    Measures measures;
-    int filledPositions = measures.getFilledPositions(solution);
-    int blocked = measures.getBlockedUsers(solution, R, filledPositions, numberUsers);
+    Measures measures(numberUsers, R, solution);
+    measures.computeBlockedUsers();
 
     // update the solution, if necessary
     #pragma omp critical
     {
-        if(blocked < Heuristic::best){
-            Heuristic::best = blocked;
-            Heuristic::finalSolution = solution;
+        if(measures.getBlockedUsers() < Heuristic::best){
+            Heuristic::best = measures.getBlockedUsers();
+            Heuristic::finalSolution = measures.solution;
         }
     }
 }
 
 // this will run the heuristic 100 times and return the best answer
-vector<int> Heuristic::execute(vector<User> users, int R, int numberUsers){
+void Heuristic::execute(vector<User> &users, int R, int numberUsers, Measures &measures){
     Heuristic::best = 99999;
 
     #pragma omp parallel for firstprivate(users, R, numberUsers) num_threads(10)
@@ -123,6 +122,6 @@ vector<int> Heuristic::execute(vector<User> users, int R, int numberUsers){
         Heuristic::runHeuristic(users, R, numberUsers, i);
     }
 
-    return Heuristic::finalSolution;
+    measures.setSolution(Heuristic::finalSolution);
 }
 

@@ -14,18 +14,12 @@
 #include "schedulingmodel.h"
 #include "simulator.h"
 #include "besteffort.h"
+#include "bruteforce.h"
+#include "params.h"
 
 using namespace std;
 
-typedef struct structParams
-{
-    string alg;
-    int numberSubframes;
-    int numberUsers;
-    int R;
-    bool shouldSimulate;
-} Params;
-
 int main(int argc, char *argv[]);
 void readCheckParams(Params &params, int argc, char *argv[]);
+void generateOutput(Params &params, int numberUsers, Measures &measures);
 #endif // MAIN_H

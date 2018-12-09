@@ -9,10 +9,27 @@
 
 class Measures
 {
-public:
-    Measures();
-    int getFilledPositions(vector<int> &solution);
-    int getBlockedUsers(vector<int> &solution, int R, int filledPositions, int numberUsers);
+    private:
+        int R;
+        int numberOfUsers;
+        int blockedUsers;
+        int filledPositions;
+
+        void setFilledPositions();
+        void setBlockedUsers();
+
+    public:
+        vector<int> solution;
+
+        Measures(int numberOfUsers, int R);
+        Measures(int numberOfUsers, int R, vector<int> &solution);
+
+        void setSolution(vector<int> &solution);
+        void computeBlockedUsers();
+        double getBlockedRate();
+        double getResourceRate();
+        int getBlockedUsers();
+        int getFilledPositions();
 };
 
 #endif // MEASURES_H

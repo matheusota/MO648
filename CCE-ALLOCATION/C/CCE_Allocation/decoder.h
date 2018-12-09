@@ -13,10 +13,11 @@ class Decoder
 {
     private:
         int R;
+        int numberUsers;
         vector<User> users;
 
     public:
-        Decoder(vector<User> users, int R);
+        Decoder(vector<User> users, int numberUsers, int R);
         double decode(const vector<double> &chromosome) const;
         vector<int> convertToSolution(const vector<double> &chromosome) const;
 };

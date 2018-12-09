@@ -7,6 +7,7 @@ User::User(){}
 User::User(int userId){
     originalId = userId;
     size = -1;
+    allocatedIt = 0;
 }
 
 void User::printUser(){

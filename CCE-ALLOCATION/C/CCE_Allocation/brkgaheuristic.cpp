@@ -2,11 +2,11 @@
 
 unsigned BRKGAHeuristic::generation = 0;
 
-vector<int> BRKGAHeuristic::execute(vector<User> users, int R, int numberUsers){
+void BRKGAHeuristic::execute(vector<User> &users, int R, int numberUsers, Measures &measures){
     // initialize the random number generator
     MTRand rng(rngSeed);
 
-    Decoder *decoder = new Decoder(users, R);
+    Decoder *decoder = new Decoder(users, numberUsers, R);
 
     BRKGA<Decoder, MTRand> algorithm(50, p, pe, pm, rhoe, *decoder, rng, K, MAXT);
     double best_solution = numeric_limits<double>::max();
@@ -30,5 +30,5 @@ vector<int> BRKGAHeuristic::execute(vector<User> users, int R, int numberUsers){
 
     // convert best chromossome and return
     const vector<double> bestChromossome = algorithm.getBestChromosome();
-    return decoder->convertToSolution(bestChromossome);
+    measures.solution = decoder->convertToSolution(bestChromossome);
 }

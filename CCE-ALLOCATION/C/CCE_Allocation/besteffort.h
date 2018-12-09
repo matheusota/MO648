@@ -3,6 +3,7 @@
 #include "user.h"
 #include <vector>
 #include "segtree.h"
+#include "measures.h"
 
 class BestEffort
 {
@@ -10,7 +11,7 @@ class BestEffort
         static bool tryToAllocate(User &user, SegTree &solutionTree);
 
     public:
-        static vector<int> execute(vector<User> users, int R, int numberUsers);
+        static void execute(vector<User> &users, int R, int numberUsers, Measures &measures);
 };
 
 #endif // BESTEFFORT_H
