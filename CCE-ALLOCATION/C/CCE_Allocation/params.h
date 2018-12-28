@@ -10,8 +10,10 @@ class Params
         int numberUsersLB;
         int numberUsersUB;
         int R;
-        bool shouldSimulate;
+        int simulations;
         string outputFile;
+        string metricType;
+        int objFunc;
 };
 
 #endif // PARAMS_H

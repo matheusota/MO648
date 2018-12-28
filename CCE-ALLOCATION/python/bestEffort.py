@@ -62,7 +62,7 @@ def tryToAllocateUser(b, begins, i, id, users, resources):
 
     idx = b + i
     #idx = getCCEIndex(b, i, id, users, resources)
-    print("allocating at " + str(idx))
+    #print("allocating at " + str(idx))
 
     if resources[idx] != -1:
         return False

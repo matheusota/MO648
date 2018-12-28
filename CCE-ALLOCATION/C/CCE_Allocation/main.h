@@ -16,6 +16,9 @@
 #include "besteffort.h"
 #include "bruteforce.h"
 #include "params.h"
+#include "sppmodel.h"
+#include "reshuffle.h"
+#include "schedulingmodel2.h"
 
 using namespace std;
 

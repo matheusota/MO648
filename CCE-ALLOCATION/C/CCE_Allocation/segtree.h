@@ -8,12 +8,11 @@ const int N = 100000;
 
 class SegTree
 {
-    private:
+    public:
         int n;
         int tree[2 * N];
 
-    public:
-        SegTree(vector<int> arr);
+        SegTree(vector<int> &arr);
         void update(int p, int value);
         int query(int l, int r);
         int getLeaf(int i);

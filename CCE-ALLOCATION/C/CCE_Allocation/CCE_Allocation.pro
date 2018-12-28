@@ -16,7 +16,10 @@ SOURCES += \
     schedulingmodel.cpp \
     simulator.cpp \
     besteffort.cpp \
-    bruteforce.cpp
+    bruteforce.cpp \
+    sppmodel.cpp \
+    reshuffle.cpp \
+    schedulingmodel2.cpp
 
 HEADERS += \
     filereader.h \
@@ -34,6 +37,9 @@ HEADERS += \
     besteffort.h \
     bruteforce.h \
     simulator.h \
-    params.h
+    params.h \
+    sppmodel.h \
+    reshuffle.h \
+    schedulingmodel2.h
 
 DISTFILES +=

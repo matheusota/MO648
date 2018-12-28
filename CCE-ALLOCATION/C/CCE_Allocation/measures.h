@@ -14,6 +14,8 @@ class Measures
         int numberOfUsers;
         int blockedUsers;
         int filledPositions;
+        int time;
+        int iterations;
 
         void setFilledPositions();
         void setBlockedUsers();
@@ -30,6 +32,10 @@ class Measures
         double getResourceRate();
         int getBlockedUsers();
         int getFilledPositions();
+        void setTime(int time);
+        int getTime();
+        void incrementIterations();
+        int getIterations();
 };
 
 #endif // MEASURES_H

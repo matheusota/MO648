@@ -3,12 +3,14 @@
 Measures::Measures(int numberOfUsers, int R){
     this->numberOfUsers = numberOfUsers;
     this->R = R;
+    this->iterations = 0;
 }
 
 Measures::Measures(int numberOfUsers, int R, vector<int> &solution){
     this->numberOfUsers = numberOfUsers;
     this->R = R;
     this->solution = solution;
+    this->iterations = 0;
 }
 
 void Measures::setSolution(vector<int> &solution){
@@ -75,4 +77,20 @@ int Measures::getBlockedUsers(){
 
 int Measures::getFilledPositions(){
     return filledPositions;
+}
+
+void Measures::setTime(int time){
+    this->time = time;
+}
+
+int Measures::getTime(){
+    return time;
+}
+
+void Measures::incrementIterations(){
+    this->iterations++;
+}
+
+int Measures::getIterations(){
+    return this->iterations;
 }

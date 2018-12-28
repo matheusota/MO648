@@ -1,72 +1,482 @@
-Time to solve model: 0.0024311542511 seconds.
+User: 1
+	size: 4
+	begins:[16, 0]
+	price: 4.0
+User: 2
+	size: 2
+	begins:[0, 2, 4, 6, 8, 10]
+	price: 1.0
+User: 3
+	size: 1
+	begins:[13, 14, 15, 16, 17, 18]
+	price: 0.333333333333
+User: 4
+	size: 1
+	begins:[1, 2, 3, 4, 5, 6]
+	price: 0.25
+User: 5
+	size: 4
+	begins:[4, 8]
+	price: 0.8
+User: 6
+	size: 4
+	begins:[4, 8]
+	price: 0.666666666667
+User: 7
+	size: 2
+	begins:[8, 10, 12, 14, 16, 18]
+	price: 0.285714285714
+User: 8
+	size: 2
+	begins:[0, 2, 4, 6, 8, 10]
+	price: 0.25
+User: 9
+	size: 2
+	begins:[4, 6, 8, 10, 12, 14]
+	price: 0.222222222222
+User: 10
+	size: 8
+	begins:[8, 0]
+	price: 0.8
+Time to solve model: 0.00339603424072 seconds.
 Subframe: 0
 Solution:
-[55483, 55483, 55483, 55483, 55483, 55483, 55483, 55483, 33929, 33929, 33929, 33929, 33929, 33929, 33929, 33929, 4147, 4147, 4147, 4147]
-Filled Positions Rate: 20/20
-Number of Blocked Users: 8
+[2, 2, -1, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, -1, 3, 1, 1, 1, 1]
+Solution cost: 7.33571428571
+Filled Positions Rate: 18/20
+Number of Blocked Users: 4
 ---------------------------------------------------------------------
-Time to solve model: 0.002357006073 seconds.
+User: 1
+	size: 4
+	begins:[12, 16]
+	price: 4.0
+User: 2
+	size: 8
+	begins:[8, 0]
+	price: 4.0
+User: 3
+	size: 1
+	begins:[19, 0, 1, 2, 3, 4]
+	price: 0.333333333333
+User: 4
+	size: 2
+	begins:[2, 4, 6, 8, 10, 12]
+	price: 0.5
+User: 5
+	size: 4
+	begins:[16, 0]
+	price: 0.8
+User: 6
+	size: 1
+	begins:[1, 2, 3, 4, 5, 6]
+	price: 0.166666666667
+User: 7
+	size: 2
+	begins:[16, 18, 0, 2, 4, 6]
+	price: 0.285714285714
+User: 8
+	size: 2
+	begins:[18, 0, 2, 4, 6, 8]
+	price: 0.25
+User: 9
+	size: 2
+	begins:[12, 14, 16, 18, 0, 2]
+	price: 0.222222222222
+User: 10
+	size: 2
+	begins:[2, 4, 6, 8, 10, 12]
+	price: 0.2
+Time to solve model: 0.00281000137329 seconds.
 Subframe: 1
 Solution:
-[25651, 25651, 25651, 25651, 25651, 25651, 25651, 25651, 8895, 8895, 8895, 8895, 8895, 8895, 8895, 8895, 8791, 8791, 8791, 8791]
+[5, 5, 5, 5, 3, 6, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1]
+Solution cost: 9.8
 Filled Positions Rate: 20/20
-Number of Blocked Users: 10
+Number of Blocked Users: 0
 ---------------------------------------------------------------------
-Time to solve model: 0.00423502922058 seconds.
+User: 1
+	size: 2
+	begins:[2, 4, 6, 8, 10, 12]
+	price: 2.0
+User: 2
+	size: 1
+	begins:[19, 0, 1, 2, 3, 4]
+	price: 0.5
+User: 3
+	size: 2
+	begins:[10, 12, 14, 16, 18, 0]
+	price: 0.666666666667
+User: 4
+	size: 4
+	begins:[4, 8]
+	price: 1.0
+User: 5
+	size: 4
+	begins:[0, 4]
+	price: 0.8
+User: 6
+	size: 4
+	begins:[12, 16]
+	price: 0.666666666667
+User: 7
+	size: 4
+	begins:[16, 0]
+	price: 0.571428571429
+User: 8
+	size: 1
+	begins:[16, 17, 18, 19, 0, 1]
+	price: 0.125
+User: 9
+	size: 1
+	begins:[17, 18, 19, 0, 1, 2]
+	price: 0.111111111111
+User: 10
+	size: 1
+	begins:[15, 16, 17, 18, 19, 0]
+	price: 0.1
+Time to solve model: 0.006098985672 seconds.
 Subframe: 2
 Solution:
-[8713, 8713, 8713, 8713, 8713, 8713, 8713, 8713, 46606, 46606, 46606, 46606, 65235, 65235, 58690, 58690, 53383, 53383, 53383, 53383]
+[9, 2, 1, 1, 5, 5, 5, 5, 4, 4, 4, 4, 6, 6, 6, 6, 3, 3, 10, 8]
+Solution cost: 5.96944444444
 Filled Positions Rate: 20/20
-Number of Blocked Users: 9
+Number of Blocked Users: 1
 ---------------------------------------------------------------------
-Time to solve model: 0.00590395927429 seconds.
+User: 1
+	size: 1
+	begins:[8, 9, 10, 11, 12, 13]
+	price: 1.0
+User: 2
+	size: 4
+	begins:[16, 0]
+	price: 2.0
+User: 3
+	size: 1
+	begins:[13, 14, 15, 16, 17, 18]
+	price: 0.333333333333
+User: 4
+	size: 2
+	begins:[2, 4, 6, 8, 10, 12]
+	price: 0.5
+User: 5
+	size: 8
+	begins:[8, 0]
+	price: 1.6
+User: 6
+	size: 2
+	begins:[8, 10, 12, 14, 16, 18]
+	price: 0.333333333333
+User: 7
+	size: 1
+	begins:[9, 10, 11, 12, 13, 14]
+	price: 0.142857142857
+User: 8
+	size: 4
+	begins:[12, 16]
+	price: 0.5
+User: 9
+	size: 4
+	begins:[12, 16]
+	price: 0.444444444444
+User: 10
+	size: 1
+	begins:[0, 1, 2, 3, 4, 5]
+	price: 0.1
+Time to solve model: 0.00429511070251 seconds.
 Subframe: 3
 Solution:
-[37235, 37235, 37235, 37235, 53893, 53893, 57303, 57303, 63682, 63682, 63682, 63682, 25791, 25791, 25791, 25791, 8165, 8165, 8165, 8165]
-Filled Positions Rate: 20/20
-Number of Blocked Users: 8
+[5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 6, 6, 1, -1, 7, 3, 2, 2, 2, 2]
+Solution cost: 5.90952380952
+Filled Positions Rate: 19/20
+Number of Blocked Users: 4
 ---------------------------------------------------------------------
-Time to solve model: 0.00541877746582 seconds.
+User: 1
+	size: 1
+	begins:[0, 1, 2, 3, 4, 5]
+	price: 1.0
+User: 2
+	size: 2
+	begins:[8, 10, 12, 14, 16, 18]
+	price: 1.0
+User: 3
+	size: 2
+	begins:[18, 0, 2, 4, 6, 8]
+	price: 0.666666666667
+User: 4
+	size: 8
+	begins:[0, 8]
+	price: 2.0
+User: 5
+	size: 4
+	begins:[12, 16]
+	price: 0.8
+User: 6
+	size: 4
+	begins:[12, 16]
+	price: 0.666666666667
+User: 7
+	size: 4
+	begins:[16, 0]
+	price: 0.571428571429
+User: 8
+	size: 1
+	begins:[10, 11, 12, 13, 14, 15]
+	price: 0.125
+User: 9
+	size: 4
+	begins:[0, 4]
+	price: 0.444444444444
+User: 10
+	size: 1
+	begins:[0, 1, 2, 3, 4, 5]
+	price: 0.1
+Time to solve model: 0.00438809394836 seconds.
 Subframe: 4
 Solution:
-[55483, 55483, 55483, 55483, 55483, 55483, 55483, 55483, 38098, 38098, 20663, 18978, 24110, 24110, 24110, 24110, 50223, 50223, 50223, 50223]
-Filled Positions Rate: 20/20
-Number of Blocked Users: 7
+[7, 7, 7, 7, 1, 10, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2, -1, -1]
+Solution cost: 5.3380952381
+Filled Positions Rate: 18/20
+Number of Blocked Users: 5
 ---------------------------------------------------------------------
-Time to solve model: 0.00484681129456 seconds.
+User: 1
+	size: 1
+	begins:[8, 9, 10, 11, 12, 13]
+	price: 1.0
+User: 2
+	size: 1
+	begins:[9, 10, 11, 12, 13, 14]
+	price: 0.5
+User: 3
+	size: 4
+	begins:[4, 8]
+	price: 1.33333333333
+User: 4
+	size: 1
+	begins:[18, 19, 0, 1, 2, 3]
+	price: 0.25
+User: 5
+	size: 1
+	begins:[3, 4, 5, 6, 7, 8]
+	price: 0.2
+User: 6
+	size: 4
+	begins:[0, 4]
+	price: 0.666666666667
+User: 7
+	size: 1
+	begins:[6, 7, 8, 9, 10, 11]
+	price: 0.142857142857
+User: 8
+	size: 8
+	begins:[8, 0]
+	price: 1.0
+User: 9
+	size: 4
+	begins:[8, 12]
+	price: 0.444444444444
+User: 10
+	size: 8
+	begins:[8, 0]
+	price: 0.8
+Time to solve model: 0.00305891036987 seconds.
 Subframe: 5
 Solution:
-[58671, 58671, 58671, 58671, 58671, 58671, 58671, 58671, 8713, 8713, 8713, 8713, 8713, 8713, 8713, 8713, 53942, 53942, 53942, 53942]
-Filled Positions Rate: 20/20
-Number of Blocked Users: 9
----------------------------------------------------------------------
-Time to solve model: 0.00688195228577 seconds.
-Subframe: 6
-Solution:
-[46704, 46704, 46704, 46704, 60521, 60521, 60521, 60521, 8713, 8713, 8713, 8713, 8713, 8713, 8713, 8713, 48226, 48226, 18852, 18852]
-Filled Positions Rate: 20/20
-Number of Blocked Users: 8
----------------------------------------------------------------------
-Time to solve model: 0.00541687011719 seconds.
-Subframe: 7
-Solution:
-[7355, 7355, 7355, 7355, 47788, 58804, 38098, 38098, 55483, 55483, 55483, 55483, 55483, 55483, 55483, 55483, 57303, 57303, 8018, 8018]
-Filled Positions Rate: 20/20
-Number of Blocked Users: 6
----------------------------------------------------------------------
-Time to solve model: 0.00507807731628 seconds.
-Subframe: 8
-Solution:
-[40779, 40779, 40779, 40779, 40779, 40779, 40779, 40779, 62532, 62532, 62532, 62532, 62532, 62532, 62532, 62532, 60521, 60521, 60521, 60521]
-Filled Positions Rate: 20/20
-Number of Blocked Users: 7
----------------------------------------------------------------------
-Time to solve model: 0.00652599334717 seconds.
-Subframe: 9
-Solution:
-[47788, 50019, 65235, 65235, 7355, 7355, 7355, 7355, 21947, 21947, 59179, 42644, 52982, 52982, 61561, 34072, 18202, 18202, 18202, 18202]
-Filled Positions Rate: 20/20
+[6, 6, 6, 6, 3, 3, 3, 3, 5, 2, 7, 1, 9, 9, 9, 9, -1, -1, 4, -1]
+Solution cost: 4.5373015873
+Filled Positions Rate: 17/20
 Number of Blocked Users: 3
 ---------------------------------------------------------------------
-Mean Filled: 20.0
-Mean Blocked: 7.5
+User: 1
+	size: 4
+	begins:[0, 4]
+	price: 4.0
+User: 2
+	size: 4
+	begins:[0, 4]
+	price: 2.0
+User: 3
+	size: 4
+	begins:[4, 8]
+	price: 1.33333333333
+User: 4
+	size: 2
+	begins:[12, 14, 16, 18, 0, 2]
+	price: 0.5
+User: 5
+	size: 1
+	begins:[15, 16, 17, 18, 19, 0]
+	price: 0.2
+User: 6
+	size: 4
+	begins:[4, 8]
+	price: 0.666666666667
+User: 7
+	size: 8
+	begins:[0, 8]
+	price: 1.14285714286
+User: 8
+	size: 4
+	begins:[4, 8]
+	price: 0.5
+User: 9
+	size: 4
+	begins:[8, 12]
+	price: 0.444444444444
+User: 10
+	size: 1
+	begins:[2, 3, 4, 5, 6, 7]
+	price: 0.1
+Time to solve model: 0.00237393379211 seconds.
+Subframe: 6
+Solution:
+[1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 9, 9, 9, 9, 4, 4, 5, -1]
+Solution cost: 8.47777777778
+Filled Positions Rate: 19/20
+Number of Blocked Users: 5
+---------------------------------------------------------------------
+User: 1
+	size: 2
+	begins:[8, 10, 12, 14, 16, 18]
+	price: 2.0
+User: 2
+	size: 2
+	begins:[4, 6, 8, 10, 12, 14]
+	price: 1.0
+User: 3
+	size: 8
+	begins:[0, 8]
+	price: 2.66666666667
+User: 4
+	size: 1
+	begins:[16, 17, 18, 19, 0, 1]
+	price: 0.25
+User: 5
+	size: 4
+	begins:[8, 12]
+	price: 0.8
+User: 6
+	size: 1
+	begins:[18, 19, 0, 1, 2, 3]
+	price: 0.166666666667
+User: 7
+	size: 1
+	begins:[7, 8, 9, 10, 11, 12]
+	price: 0.142857142857
+User: 8
+	size: 2
+	begins:[8, 10, 12, 14, 16, 18]
+	price: 0.25
+User: 9
+	size: 4
+	begins:[16, 0]
+	price: 0.444444444444
+User: 10
+	size: 1
+	begins:[2, 3, 4, 5, 6, 7]
+	price: 0.1
+Time to solve model: 0.00282502174377 seconds.
+Subframe: 7
+Solution:
+[3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 8, 8, 5, 5, 5, 5, 1, 1, 6, 4]
+Solution cost: 7.13333333333
+Filled Positions Rate: 20/20
+Number of Blocked Users: 1
+---------------------------------------------------------------------
+User: 1
+	size: 8
+	begins:[0, 8]
+	price: 8.0
+User: 2
+	size: 2
+	begins:[4, 6, 8, 10, 12, 14]
+	price: 1.0
+User: 3
+	size: 2
+	begins:[2, 4, 6, 8, 10, 12]
+	price: 0.666666666667
+User: 4
+	size: 4
+	begins:[12, 16]
+	price: 1.0
+User: 5
+	size: 1
+	begins:[13, 14, 15, 16, 17, 18]
+	price: 0.2
+User: 6
+	size: 4
+	begins:[16, 0]
+	price: 0.666666666667
+User: 7
+	size: 4
+	begins:[4, 8]
+	price: 0.571428571429
+User: 8
+	size: 1
+	begins:[16, 17, 18, 19, 0, 1]
+	price: 0.125
+User: 9
+	size: 4
+	begins:[16, 0]
+	price: 0.444444444444
+User: 10
+	size: 8
+	begins:[0, 8]
+	price: 0.8
+Time to solve model: 0.00173497200012 seconds.
+Subframe: 8
+Solution:
+[1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 4, 6, 6, 6, 6]
+Solution cost: 11.3333333333
+Filled Positions Rate: 20/20
+Number of Blocked Users: 1
+---------------------------------------------------------------------
+User: 1
+	size: 1
+	begins:[9, 10, 11, 12, 13, 14]
+	price: 1.0
+User: 2
+	size: 1
+	begins:[17, 18, 19, 0, 1, 2]
+	price: 0.5
+User: 3
+	size: 1
+	begins:[9, 10, 11, 12, 13, 14]
+	price: 0.333333333333
+User: 4
+	size: 1
+	begins:[14, 15, 16, 17, 18, 19]
+	price: 0.25
+User: 5
+	size: 2
+	begins:[10, 12, 14, 16, 18, 0]
+	price: 0.4
+User: 6
+	size: 2
+	begins:[18, 0, 2, 4, 6, 8]
+	price: 0.333333333333
+User: 7
+	size: 1
+	begins:[15, 16, 17, 18, 19, 0]
+	price: 0.142857142857
+User: 8
+	size: 2
+	begins:[4, 6, 8, 10, 12, 14]
+	price: 0.25
+User: 9
+	size: 4
+	begins:[16, 0]
+	price: 0.444444444444
+User: 10
+	size: 1
+	begins:[14, 15, 16, 17, 18, 19]
+	price: 0.1
+Time to solve model: 0.00231409072876 seconds.
+Subframe: 9
+Solution:
+[9, 9, 9, 9, 6, 6, 8, 8, -1, 3, 5, 5, -1, -1, 1, 4, 10, -1, 2, 7]
+Solution cost: 3.75396825397
+Filled Positions Rate: 16/20
+Number of Blocked Users: 1
+---------------------------------------------------------------------
+Mean Filled: 18.7
+Mean Blocked: 2.5

@@ -87,7 +87,8 @@ def modelSimple(numberOfUsers, R, numberOfSubframes, graph):
             if not graph:
                 f.write("Subframe: " + str(frame) + "\n")
                 f.write("Solution:\n")
-                f.write(str(solutionOrigId) + "\n")
+                f.write(str(solution) + "\n")
+                f.write("Solution cost: " + str(m.objVal) + "\n")
                 f.write("Filled Positions Rate: " + str(filled) + "/" + str(R) + "\n")
                 f.write("Number of Blocked Users: " + str(blocked) + "\n")
                 f.write("---------------------------------------------------------------------\n")

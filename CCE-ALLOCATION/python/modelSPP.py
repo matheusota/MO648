@@ -32,7 +32,7 @@ def modelSPP(numberOfUsers, R, numberOfSubframes, graph):
             m = Model("cce_allocation")
 
             # Create variables
-            x = m.addVars(userRange, range(6), vtype=GRB.CONTINUOUS, name="x")
+            x = m.addVars(userRange, range(6), vtype=GRB.INTEGER, name="x")
 
             # Set objective
             m.setObjective(quicksum([users[i].getPriceForCandidate(k) * x[(i, k)] for i in userRange for k in range(6)]), GRB.MAXIMIZE)
@@ -44,6 +44,11 @@ def modelSPP(numberOfUsers, R, numberOfSubframes, graph):
             # Add constraint: \sum_k x_i^k <= 1, \forall i
             m.addConstrs((quicksum([x[(i, k)] for k in range(6)]) <= 1 \
                 for i in userRange), name = "user_starts_once")
+
+            # x can be set only for allowed candidates
+            for i in userRange:
+                for k in range(len(users[i].begins), 6):
+                    m.addConstr(x[(i, k)] == 0)
 
             start_time = time.time()
             m.optimize()
@@ -84,6 +89,7 @@ def modelSPP(numberOfUsers, R, numberOfSubframes, graph):
                     for i in userRange:
                         if (i not in allocatedUsers) and (j in users[i].begins):
                             if addIfPossible(solution, users, i, j):
+                                print("blabla")
                                 solutionStatistics.countUser(users[i])
                                 allocatedUsers.add(i)
                                 break

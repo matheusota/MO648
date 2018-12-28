@@ -13,7 +13,7 @@ def reshuffleScheduler(users, R):
     resources = [-1 for _ in range(R)]
 
     for id in userRange:
-        users[id].printUser()
+        #users[id].printUser()
         #pdb.set_trace()
         # try to allocate this user
         allocated = allocateUser(id, users, resources)

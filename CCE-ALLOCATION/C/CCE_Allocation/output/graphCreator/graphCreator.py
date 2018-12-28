@@ -19,7 +19,7 @@ yname = args.yname
 # read from file to a pandas dataframe
 df = pd.DataFrame(columns=["algorithm", "number of users", yname])
 
-file = open(filename + ".csv")
+file = open("../" + filename + ".csv")
 
 i = 0
 for line in file:
@@ -57,8 +57,7 @@ xList = sorted(xList)
 algorithms = df["algorithm"].unique().tolist()
 
 # now for each algorithm, we get the mean with respect to number of users, and plot the yvalues
-idx_dm = 0
-idx_color = 1
+idx = 0
 for alg in algorithms:
     yList = []
     yErrs = []
@@ -69,11 +68,11 @@ for alg in algorithms:
         yErrs.append((1.96 / sqrt(len(xList))) * auxDf.std().tolist()[0])
 
     # plot the means for this algorithm    
-    ax.plot(xList, yList, dashes[idx_dm], fillstyle = "full", color = colors[idx_color], markersize = 6, marker = markers[idx_dm], label = alg, linewidth = 2.5)
+    ax.plot(xList, yList, dashes[idx], fillstyle = "full", color = colors[idx], markersize = 6, marker = markers[idx], label = alg, linewidth = 2.5)
 
     # plot confidence interval
-    ax.errorbar(xList, yList, yerr = yErrs, fmt = "none", ecolor = colors[idx_color], capsize = 5, capthick = 2, linewidth = 2.5)
-    idx_dm += 1
+    ax.errorbar(xList, yList, yerr = yErrs, fmt = "none", ecolor = colors[idx], capsize = 5, capthick = 2, linewidth = 2.5)
+    idx += 1
 
 rcParams.update({'font.size': 12})
 
@@ -84,5 +83,5 @@ xticks = [i for i in range(min(xList), max(xList), 10)]
 plt.xticks(xticks, xticks)
 plt.xlabel("number of users", fontsize = 18)
 plt.ylabel(yname, fontsize=18)
-plt.savefig((filename + '.png'), bbox_inches='tight', pad_inches = 0)
+plt.savefig(("../" + filename + '.png'), bbox_inches='tight', pad_inches = 0)
 #plt.show()

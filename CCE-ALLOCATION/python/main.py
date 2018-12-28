@@ -25,33 +25,33 @@ else:
         statisticsList = []
         numberOfUsers = []
         for i in range(10, 70, 10): 
-            solutionStatistics = reshuffle(i, R, 100, True)
+            solutionStatistics = modelSimple(i, R, 100, True)
             statisticsList.append(solutionStatistics)
             numberOfUsers.append(i)
         
         createGraph(numberOfUsers, statisticsList)
 
     elif mode == "-best_effort":
-        bestEffort(51, R, 10, False)
+        bestEffort(50, R, 10, False)
     elif mode == "-simple":
-        modelSimple(51, R, 10, False)
+        modelSimple(50, R, 10, False)
     elif mode == "-simple2":
-        modelSimple2(51, R, 10, False)
+        modelSimple2(50, R, 10, False)
     elif mode == "-round":
-        modelRound(51, R, 10, False)
+        modelRound(50, R, 10, False)
     elif mode == "-roundprob":
-        modelRoundProb(51, R, 10, False)
+        modelRoundProb(50, R, 10, False)
     elif mode == "-spp":
-        modelSPP(51, R, 10, False)
+        modelSPP(50, R, 10, False)
     elif mode == "-reshuffle":
-        reshuffle(51, R, 10, False)
+        reshuffle(50, R, 10, False)
     elif mode == "-quadratic":
-        modelQuadratic(51, R, 10, False)
+        modelQuadratic(50, R, 10, False)
     elif mode == "-best":
-        modelBest(51, R, 10, False)
+        modelBest(50, R, 10, False)
     elif mode == "-best_round":
-        modelBestRound(51, R, 10, False)
+        modelBestRound(50, R, 10, False)
     elif mode == "-brute_force":
-        bruteForce(51, R, 10, False)
+        bruteForce(50, R, 10, False)
     elif mode == "-heuristic":
-        heuristic(51, R, 10, False)
+        heuristic(50, R, 10, False)

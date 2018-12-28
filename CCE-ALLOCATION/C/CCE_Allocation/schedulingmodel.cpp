@@ -4,6 +4,9 @@ void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Meas
     // copy users
     vector<User> users(users2.begin(), users2.begin() + numberUsers);
 
+    //for(auto u: users)
+    //    u.printUser();
+
     // gurobi stuff
     map<int, map<int, GRBVar>> x;
     GRBEnv env = GRBEnv();
@@ -11,6 +14,8 @@ void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Meas
     model.set(GRB_StringAttr_ModelName, "CCE_SCH"); // gives a name to the problem
     model.set(GRB_IntAttr_ModelSense, GRB_MAXIMIZE); // says that lp is a minimization problem
     model.set(GRB_DoubleParam_MIPGap, 0);
+    model.getEnv().set(GRB_IntParam_OutputFlag, 0);
+
 
     // solution variable
     vector<int> solution(R);

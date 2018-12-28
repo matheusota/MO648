@@ -68,7 +68,7 @@ def getInput(frame, numberOfUsers, R, numberOfSubframes):
 
         elif currFrame == frame + 1:
             userCount += 1
-            if userCount == numberOfUsers:
+            if userCount == numberOfUsers + 1:
                 break
                 
             userid = int(line_items[0])

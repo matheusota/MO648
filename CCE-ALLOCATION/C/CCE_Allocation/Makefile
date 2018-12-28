@@ -45,7 +45,7 @@ else
 	CC_ARGS    = -m64 $(OPTS_FLAGS) -w -std=c++11 -D_GLIBCXX_USE_CXX11_ABI=0 
 	RELEASE := $(shell uname -r | cut -f 1 -d .)
 	CC_LIB   = -lm -lpthread
-	GUROBI_DIR = /home/matheus/gurobi$(VERSION)/$(PLATFORM)
+	GUROBI_DIR = /home/matheus/Programs/gurobi$(VERSION)/$(PLATFORM)
 endif
 GUROBI_INC = -I$(GUROBI_DIR)/include/
 GUROBI_LIB = -L$(GUROBI_DIR)/lib/  -lgurobi_c++ -lgurobi$(FLAGVERSION)  $(CPPSTDLIB)
@@ -55,7 +55,7 @@ GUROBI_LIB = -L$(GUROBI_DIR)/lib/  -lgurobi_c++ -lgurobi$(FLAGVERSION)  $(CPPSTD
 INC = $(GUROBI_INC)
 LIB = $(CC_LIB) $(GUROBI_LIB) 
 
-MYLIBSOURCES = main.cpp user.cpp filereader.cpp heuristic.cpp measures.cpp segtree.cpp brkgaheuristic.cpp population.cpp decoder.cpp schedulingmodel.cpp simulator.cpp besteffort.cpp bruteforce.cpp
+MYLIBSOURCES = main.cpp user.cpp filereader.cpp heuristic.cpp measures.cpp segtree.cpp brkgaheuristic.cpp population.cpp decoder.cpp schedulingmodel.cpp simulator.cpp besteffort.cpp bruteforce.cpp sppmodel.cpp reshuffle.cpp schedulingmodel2.cpp
 MYOBJLIB = $(MYLIBSOURCES:.cpp=.o)
 
 EX =  main.cpp

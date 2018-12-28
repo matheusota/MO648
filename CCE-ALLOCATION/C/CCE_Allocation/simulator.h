@@ -11,6 +11,8 @@
 #include "measures.h"
 #include "main.h"
 #include "params.h"
+#include <stdlib.h>
+#include <set>
 
 using namespace std;
 
@@ -24,6 +26,8 @@ class Simulator
         static void setBegins(vector<User> &users, int nCCEs);
         static int calcCCEIndex(int m, int i, User user, int nCCEs);
         static int Calc_Y(int k, int RNTI);
+        static void runUntilEmpty(Params &params, vector<User> &users, Measures &measures, void (*scheduler)(vector<User>&, int, int, Measures&));
+
     public:
         static int nSubframe;
 

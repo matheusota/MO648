@@ -64,15 +64,78 @@ int Simulator::Calc_Y(int k, int RNTI){
   return y;
 }
 
+// runs the scheduler until the users vector is empty. This is used for counting how many iterations
+// we need to allocate all incoming users
+void Simulator::runUntilEmpty(Params &params, vector<User> &users, Measures &measures, void (*scheduler)(vector<User>&, int, int, Measures&)){
+    vector<User> usersAux(users);
+
+    while(usersAux.size() > 0){
+        // run scheduling algorithm
+        scheduler(usersAux, params.R, usersAux.size(), measures);
+        measures.incrementIterations();
+
+        // for debugging purposes
+        cout << "\nUsers: ";
+        for(auto user: usersAux)
+            cout << user.originalId << ", ";
+        cout << endl;
+
+        cout << "Iteration: " << measures.getIterations() <<  endl;
+        cout << "Solution [ ";
+        for(auto id : measures.solution){
+            if(id != 0)
+                cout << "(" << id << "," << usersAux[id - 1].originalId << ") , ";
+            else
+                cout << "X , ";
+        }
+        cout << " ]\n" << endl;
+
+        // get allocated users
+        set<int> toRemoveUsers;
+
+        for(auto id: measures.solution)
+            toRemoveUsers.insert(id);
+
+        // remove allocated users from the users vector
+        vector<User> users2;
+
+        for(int i = 0; i < usersAux.size(); i++){
+            if(toRemoveUsers.find(i + 1) == toRemoveUsers.end())
+                users2.push_back(usersAux[i]);
+        }
+
+        usersAux.clear();
+        usersAux = users2;
+
+        // assign ids and price
+        for(int i = 0; i < usersAux.size(); i++){
+            usersAux[i].id = i + 1;
+
+            if(params.objFunc == 0)
+                usersAux[i].price = 1;
+            else if(params.objFunc == 1)
+                usersAux[i].price = (1.0 / (i + 1));
+            else
+                usersAux[i].price = (1.0 / (i + 1)) * usersAux[i].size;
+        }
+    }
+}
+
 void Simulator::simulate(Params &params, int numberUsers, void (*scheduler)(vector<User>&, int, int, Measures&)){
     // set seed
     int seed = 0;
+    srand(seed);
 
     // create an array of UEs
     vector<User> users(numberUsers);
+    set<int> allocatedIds;
+
     for(int i = 0; i < numberUsers; i++){
-        users[i].originalId = i + 1;
-        users[i].price = 1;
+        int RNTI = rand() % 65523 + 61;
+        while(allocatedIds.find(RNTI) != allocatedIds.end())
+            RNTI = rand() % 65523 + 61;
+
+        users[i].originalId = RNTI;
     }
 
     // set the pdcch formats
@@ -82,26 +145,42 @@ void Simulator::simulate(Params &params, int numberUsers, void (*scheduler)(vect
     setBegins(users, params.R);
 
     // now we generate the subframes
-    for (nSubframe = 0 ; nSubframe < params.numberSubframes ; nSubframe++) {
-        cout << "Subframe " << nSubframe << endl;
+    for (nSubframe = 0 ; nSubframe < params.numberSubframes && users.size() > 0; nSubframe++) {
+        cout << "********************************************************************" << endl;
+        cout << "Subframe " << nSubframe + 1 << endl;
 
         auto started = chrono::high_resolution_clock::now();
 
         // shuffle the UEs
-        shuffle(users.begin(), users.end(), default_random_engine(seed));
+        if(params.metricType.compare("its") != 0)
+            random_shuffle(users.begin(), users.end());
 
-        // assign ids
-        for(int i = 0; i < numberUsers; i++)
+        // assign ids and price
+        for(int i = 0; i < numberUsers; i++){
             users[i].id = i + 1;
 
+            if(params.objFunc == 0)
+                users[i].price = 1;
+            else if(params.objFunc == 1)
+                users[i].price = (1.0 / (i + 1));
+            else
+                users[i].price = (1.0 / (i + 1)) * users[i].size;
+        }
+
         Measures measures(numberUsers, params.R);
-        scheduler(users, params.R, numberUsers, measures);
+
+        if(params.metricType.compare("its") == 0)
+            runUntilEmpty(params, users, measures, scheduler);
+        else
+            scheduler(users, params.R, numberUsers, measures);
 
         auto done = chrono::high_resolution_clock::now();
 
         // print measures
         measures.computeBlockedUsers();
 
+        measures.setTime(chrono::duration_cast<chrono::microseconds>(done-started).count());
+        cout << "Solution Details:" << endl;
         cout << "\t Time: " << chrono::duration_cast<chrono::microseconds>(done-started).count() << " us" << endl;
         cout << "\t Solution [";
         for(auto id : measures.solution)

@@ -1,7 +1,7 @@
 #include "segtree.h"
 
 // this constructor builds the segtree
-SegTree::SegTree(vector<int> arr){
+SegTree::SegTree(vector<int> &arr){
     n = arr.size();
 
     // insert leaf nodes in tree

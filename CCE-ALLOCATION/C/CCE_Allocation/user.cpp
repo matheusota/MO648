@@ -20,4 +20,6 @@ void User::printUser(){
         cout << b << " ";
     }
     cout << endl;
+
+    cout << "\t Price " << price << endl;
 }

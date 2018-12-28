@@ -9,8 +9,8 @@ int main(int argc, char *argv[])
     readCheckParams(params, argc, argv);
 
     // read input from file
-    if(!params.shouldSimulate){
-        for(int numberUsers = params.numberUsersLB; numberUsers <= params.numberUsersUB; numberUsers += 10){
+    if(params.simulations == 0){
+        for(int numberUsers = params.numberUsersLB; numberUsers <= params.numberUsersUB; numberUsers += 5){
             Measures measures(numberUsers, params.R);
 
             // read file and put subframes in a vector
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
                 else if(params.alg.compare("brkga") == 0)
                     BRKGAHeuristic::execute(users, params.R, numberUsers, measures);
 
-                else if(params.alg.compare("exact") == 0)
+                else if(params.alg.compare("scheduling") == 0)
                     SchedulingModel::execute(users, params.R, numberUsers, measures);
 
                 else if(params.alg.compare("besteffort") == 0)
@@ -38,19 +38,23 @@ int main(int argc, char *argv[])
                 else if(params.alg.compare("bruteforce") == 0)
                     BruteForce::execute(users, params.R, numberUsers, measures);
 
+                else if(params.alg.compare("spp") == 0)
+                    SPPModel::execute(users, params.R, numberUsers, measures);
+
+                else if(params.alg.compare("reshuffle") == 0)
+                    Reshuffle::execute(users, params.R, numberUsers, measures);
+
                 auto done = chrono::high_resolution_clock::now();
 
                 // get solution data
                 measures.computeBlockedUsers();
 
-                /*
                 cout << "\t Time: " << chrono::duration_cast<chrono::microseconds>(done-started).count() << " us" << endl;
                 cout << "\t Solution [";
                 for(auto id : measures.solution)
                     cout << id << ", ";
                 cout << "]" << endl;
                 cout << "\t Blocked Users: " << measures.getBlockedUsers() << endl;
-                */
 
                 // write to file
                 generateOutput(params, numberUsers, measures);
@@ -60,18 +64,24 @@ int main(int argc, char *argv[])
     }
     // run simulator to generate input
     else{
-        for(int numberUsers = params.numberUsersLB; numberUsers <= params.numberUsersUB; numberUsers += 10){
+        for(int numberUsers = params.numberUsersLB; numberUsers <= params.numberUsersUB; numberUsers += 5){
             // simulate and run the algorithms
             if(params.alg.compare("heuristic") == 0)
                 Simulator::simulate(params, numberUsers, Heuristic::execute);
             else if(params.alg.compare("brkga") == 0)
                 Simulator::simulate(params, numberUsers, BRKGAHeuristic::execute);
-            else if(params.alg.compare("exact") == 0)
+            else if(params.alg.compare("scheduling") == 0)
                 Simulator::simulate(params, numberUsers, SchedulingModel::execute);
+            else if(params.alg.compare("scheduling2") == 0)
+                Simulator::simulate(params, numberUsers, SchedulingModel2::execute);
             else if(params.alg.compare("besteffort") == 0)
                 Simulator::simulate(params, numberUsers, BestEffort::execute);
             else if(params.alg.compare("bruteforce") == 0)
                 Simulator::simulate(params, numberUsers, BruteForce::execute);
+            else if(params.alg.compare("spp") == 0)
+                Simulator::simulate(params, numberUsers, SPPModel::execute);
+            else if(params.alg.compare("reshuffle") == 0)
+                Simulator::simulate(params, numberUsers, Reshuffle::execute);
         }
     }
 
@@ -85,10 +95,12 @@ void readCheckParams(Params &params, int argc, char *argv[])
     params.alg = "";
     params.numberSubframes = 0;
     params.R = 0;
-    params.shouldSimulate = false;
+    params.simulations = 0;
     params.outputFile = "";
     params.numberUsersLB = 0;
     params.numberUsersUB = 0;
+    params.metricType = "block";
+    params.objFunc = 0;
 
     // Read
     for(int i = 1; i < argc; i++){
@@ -133,7 +145,7 @@ void readCheckParams(Params &params, int argc, char *argv[])
         }
 
         else if(arg.compare("-s") == 0){
-            params.shouldSimulate = true;
+            params.simulations = true;
             continue;
         }
 
@@ -145,6 +157,18 @@ void readCheckParams(Params &params, int argc, char *argv[])
 
         else if(arg.compare("-o") == 0){
             params.outputFile = next;
+            i++;
+            continue;
+        }
+
+        else if(arg.compare("-m") == 0){
+            params.metricType = next;
+            i++;
+            continue;
+        }
+
+        else if(arg.compare("-f") == 0){
+            params.objFunc = atoi(next.c_str());
             i++;
             continue;
         }
@@ -177,7 +201,12 @@ void generateOutput(Params &params, int numberUsers, Measures &measures){
     if(params.outputFile.compare("") != 0){
         ofstream data;
         data.open ("output/" + params.outputFile, std::ios_base::app);
-        data << params.alg << " ; " << numberUsers << " ; " << measures.getBlockedRate() << endl;
+        if(params.metricType.compare("block") == 0)
+            data << params.alg << "-f" << params.objFunc << " ; " << numberUsers << " ; " << measures.getBlockedRate() << endl;
+        if(params.metricType.compare("util") == 0)
+            data << params.alg << "-f" << params.objFunc << " ; " << numberUsers << " ; " << measures.getResourceRate() << endl;
+        if(params.metricType.compare("its") == 0)
+            data << params.alg << "-f" << params.objFunc << " ; " << numberUsers << " ; " << measures.getIterations() << endl;
         data.close();
     }
 }

@@ -62,6 +62,7 @@ vector<vector<User>> FileReader::parseFile(){
             }
             user.id = userCount;
             user.price = 1;
+            //user.price = (1.0 / userCount) * size;
             //sort(user.begins.begin(), user.begins.end());
             //user.price = (1.0/userCount) * user.size;
             userCount++;
