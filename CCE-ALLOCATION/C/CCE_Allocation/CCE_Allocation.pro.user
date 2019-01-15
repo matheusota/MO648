@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.5.2, 2018-12-27T19:33:54. -->
+<!-- Written by QtCreator 4.5.2, 2019-01-07T13:57:35. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -345,7 +345,7 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.Arguments">-n 1 -r 40 -u 50 -s -a scheduling -f 0 -m its</value>
+    <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.Arguments">-n 1 -u 50 -r 40 -a scheduling -f 2 -m blocked -s 2</value>
     <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.Executable">/home/matheus/Projects/MO648/CCE-ALLOCATION/C/CCE_Allocation/main.e</value>
     <value type="bool" key="ProjectExplorer.CustomExecutableRunConfiguration.UseTerminal">false</value>
     <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.WorkingDirectory">/home/matheus/Projects/MO648/CCE-ALLOCATION/C/CCE_Allocation</value>

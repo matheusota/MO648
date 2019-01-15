@@ -145,7 +145,8 @@ void readCheckParams(Params &params, int argc, char *argv[])
         }
 
         else if(arg.compare("-s") == 0){
-            params.simulations = true;
+            params.simulations = atoi(next.c_str());
+            i++;
             continue;
         }
 
@@ -202,11 +203,11 @@ void generateOutput(Params &params, int numberUsers, Measures &measures){
         ofstream data;
         data.open ("output/" + params.outputFile, std::ios_base::app);
         if(params.metricType.compare("block") == 0)
-            data << params.alg << "-f" << params.objFunc << " ; " << numberUsers << " ; " << measures.getBlockedRate() << endl;
+            data << params.alg << " ; " << numberUsers << " ; " << measures.getBlockedRate() << endl;
         if(params.metricType.compare("util") == 0)
-            data << params.alg << "-f" << params.objFunc << " ; " << numberUsers << " ; " << measures.getResourceRate() << endl;
+            data << params.alg << " ; " << numberUsers << " ; " << measures.getResourceRate() << endl;
         if(params.metricType.compare("its") == 0)
-            data << params.alg << "-f" << params.objFunc << " ; " << numberUsers << " ; " << measures.getIterations() << endl;
+            data << params.alg << " ; " << numberUsers << " ; " << measures.getIterations() << endl;
         data.close();
     }
 }

@@ -70,6 +70,18 @@ void Simulator::runUntilEmpty(Params &params, vector<User> &users, Measures &mea
     vector<User> usersAux(users);
 
     while(usersAux.size() > 0){
+        // assign ids and price
+        for(int i = 0; i < usersAux.size(); i++){
+            usersAux[i].id = i + 1;
+
+            if(params.objFunc == 0)
+                usersAux[i].price = 1;
+            else if(params.objFunc == 1)
+                usersAux[i].price = (1.0 / (i + 1));
+            else
+                usersAux[i].price = (1.0 / (i + 1)) * usersAux[i].size;
+        }
+
         // run scheduling algorithm
         scheduler(usersAux, params.R, usersAux.size(), measures);
         measures.incrementIterations();
@@ -106,25 +118,12 @@ void Simulator::runUntilEmpty(Params &params, vector<User> &users, Measures &mea
 
         usersAux.clear();
         usersAux = users2;
-
-        // assign ids and price
-        for(int i = 0; i < usersAux.size(); i++){
-            usersAux[i].id = i + 1;
-
-            if(params.objFunc == 0)
-                usersAux[i].price = 1;
-            else if(params.objFunc == 1)
-                usersAux[i].price = (1.0 / (i + 1));
-            else
-                usersAux[i].price = (1.0 / (i + 1)) * usersAux[i].size;
-        }
     }
 }
 
-void Simulator::simulate(Params &params, int numberUsers, void (*scheduler)(vector<User>&, int, int, Measures&)){
+void Simulator::runSimulationRound(Params &params, int numberUsers, void (*scheduler)(vector<User>&, int, int, Measures&), int seed){
     // set seed
-    int seed = 0;
-    srand(seed);
+    srand(seed * 10);
 
     // create an array of UEs
     vector<User> users(numberUsers);
@@ -138,57 +137,75 @@ void Simulator::simulate(Params &params, int numberUsers, void (*scheduler)(vect
         users[i].originalId = RNTI;
     }
 
+    cout << "\n********************************************************************" << endl;
+    cout << "********************* New Simulation *******************************" << endl;
+    cout << "********************************************************************\n" << endl;
+    cout << "Generated Users RNTIs [";
+    for(auto user: users)
+        cout << user.originalId << ", ";
+    cout << "]" << endl;
+
     // set the pdcch formats
     setAggregationLevel(numberUsers, users, 0.40, 0.25, 0.20, 0.15);
 
     // set the begins
     setBegins(users, params.R);
 
-    // now we generate the subframes
-    for (nSubframe = 0 ; nSubframe < params.numberSubframes && users.size() > 0; nSubframe++) {
-        cout << "********************************************************************" << endl;
-        cout << "Subframe " << nSubframe + 1 << endl;
+    // shuffle the UEs
+    random_shuffle(users.begin(), users.end());
 
-        auto started = chrono::high_resolution_clock::now();
-
-        // shuffle the UEs
-        if(params.metricType.compare("its") != 0)
-            random_shuffle(users.begin(), users.end());
-
-        // assign ids and price
-        for(int i = 0; i < numberUsers; i++){
-            users[i].id = i + 1;
-
-            if(params.objFunc == 0)
-                users[i].price = 1;
-            else if(params.objFunc == 1)
-                users[i].price = (1.0 / (i + 1));
-            else
-                users[i].price = (1.0 / (i + 1)) * users[i].size;
-        }
-
+    // if we are measuring iterations, we run the algorithm until the input array is empty
+    if(params.metricType.compare("its") == 0){
         Measures measures(numberUsers, params.R);
-
-        if(params.metricType.compare("its") == 0)
-            runUntilEmpty(params, users, measures, scheduler);
-        else
-            scheduler(users, params.R, numberUsers, measures);
-
-        auto done = chrono::high_resolution_clock::now();
-
-        // print measures
-        measures.computeBlockedUsers();
-
-        measures.setTime(chrono::duration_cast<chrono::microseconds>(done-started).count());
-        cout << "Solution Details:" << endl;
-        cout << "\t Time: " << chrono::duration_cast<chrono::microseconds>(done-started).count() << " us" << endl;
-        cout << "\t Solution [";
-        for(auto id : measures.solution)
-            cout << id << ", ";
-        cout << "]" << endl;
-        cout << "\t Blocked Users: " << measures.getBlockedUsers() << endl;
-
-        // write to file
+        runUntilEmpty(params, users, measures, scheduler);
         generateOutput(params, numberUsers, measures);
     }
+    // else we go on shuffling the users vector and running the desired scheduling algorithm
+    else{
+        for(nSubframe = 0 ; nSubframe < params.numberSubframes; nSubframe++){
+            cout << "********************************************************************" << endl;
+            cout << "Subframe " << nSubframe + 1 << endl;
+
+            // shuffle the UEs
+            random_shuffle(users.begin(), users.end());
+
+            // assign ids and price
+            for(int i = 0; i < numberUsers; i++){
+                users[i].id = i + 1;
+
+                if(params.objFunc == 0)
+                    users[i].price = 1;
+                else if(params.objFunc == 1)
+                    users[i].price = (1.0 / (i + 1));
+                else
+                    users[i].price = (1.0 / (i + 1)) * users[i].size;
+            }
+
+            Measures measures(numberUsers, params.R);
+
+            auto started = chrono::high_resolution_clock::now();
+            scheduler(users, params.R, numberUsers, measures);
+            auto done = chrono::high_resolution_clock::now();
+
+            // print measures
+            measures.computeBlockedUsers();
+
+            measures.setTime(chrono::duration_cast<chrono::microseconds>(done-started).count());
+            cout << "Solution Details:" << endl;
+            cout << "\t Time: " << measures.getTime() << " us" << endl;
+            cout << "\t Solution [";
+            for(auto id : measures.solution)
+                cout << id << ", ";
+            cout << "]" << endl;
+            cout << "\t Blocked Users: " << measures.getBlockedUsers() << endl;
+
+            // write to file
+            generateOutput(params, numberUsers, measures);
+        }
+    }
+}
+
+void Simulator::simulate(Params &params, int numberUsers, void (*scheduler)(vector<User>&, int, int, Measures&)){
+    for(int i = 0; i < params.simulations; i++)
+        runSimulationRound(params, numberUsers, scheduler, i);
 }

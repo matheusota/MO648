@@ -27,6 +27,7 @@ class Simulator
         static int calcCCEIndex(int m, int i, User user, int nCCEs);
         static int Calc_Y(int k, int RNTI);
         static void runUntilEmpty(Params &params, vector<User> &users, Measures &measures, void (*scheduler)(vector<User>&, int, int, Measures&));
+        static void runSimulationRound(Params &params, int numberUsers, void (*scheduler)(vector<User>&, int, int, Measures&), int seed);
 
     public:
         static int nSubframe;
