@@ -17,11 +17,11 @@ class Heuristic
     private:
         static vector<int> finalSolution;
         static int best;
-
         static bool tryToAllocate(User &user, SegTree &solutionTree, SegTree &counterTree);
         static void runHeuristic(vector<User> users, int R, int numberUsers, unsigned seed);
 
     public:
+        static int numberTries;
         static void execute(vector<User> &users, int R, int numberUsers, Measures &measures);
 };
 #endif // HEURISTIC_H

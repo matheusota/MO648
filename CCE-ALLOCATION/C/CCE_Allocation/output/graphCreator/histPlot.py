@@ -71,7 +71,7 @@ rcParams.update({'font.size': 12})
 
 ax.yaxis.grid(color='gray', linestyle='dashed')
 ax.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
-plt.xlabel("number of users", fontsize = 18)
+#plt.xlabel("number of users", fontsize = 18)
 plt.ylabel(yname, fontsize=18)
 plt.savefig(("../" + filename + '.png'), bbox_inches='tight', pad_inches = 0)
 #plt.show()

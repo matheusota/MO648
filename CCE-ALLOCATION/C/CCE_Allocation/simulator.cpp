@@ -125,6 +125,11 @@ void Simulator::runSimulationRound(Params &params, int numberUsers, void (*sched
     // set seed
     srand(seed * 10);
 
+    // tmp
+    double totalBlock = 0;
+    double totalBlockCount = 0;
+    Heuristic::numberTries = params.heuristicTries;
+
     // create an array of UEs
     vector<User> users(numberUsers);
     set<int> allocatedIds;
@@ -198,11 +203,18 @@ void Simulator::runSimulationRound(Params &params, int numberUsers, void (*sched
                 cout << id << ", ";
             cout << "]" << endl;
             cout << "\t Blocked Users: " << measures.getBlockedUsers() << endl;
+            totalBlock += measures.getBlockedRate();
+            totalBlockCount++;
 
             // write to file
             generateOutput(params, numberUsers, measures);
         }
     }
+
+    cout << "Total Block Rate: " << totalBlock/totalBlockCount << endl;
+    ofstream data;
+    data.open ("output/heuristic.csv", std::ios_base::app);
+    data << "heuristic ; " << params.heuristicTries << " ; " << totalBlock/totalBlockCount << endl;
 }
 
 void Simulator::simulate(Params &params, int numberUsers, void (*scheduler)(vector<User>&, int, int, Measures&)){

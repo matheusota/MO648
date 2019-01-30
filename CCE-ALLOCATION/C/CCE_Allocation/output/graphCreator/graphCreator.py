@@ -77,11 +77,11 @@ for alg in algorithms:
 rcParams.update({'font.size': 12})
 
 ax.yaxis.grid(color='gray', linestyle='dashed')
-ax.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+ax.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
 ax.legend(loc = "best", ncol = 1)
 xticks = [i for i in range(min(xList), max(xList), 10)]
 plt.xticks(xticks, xticks)
-plt.xlabel("number of users", fontsize = 18)
+plt.xlabel("Number Of Time Heuristic is Executed", fontsize = 18)
 plt.ylabel(yname, fontsize=18)
 plt.savefig(("../" + filename + '.png'), bbox_inches='tight', pad_inches = 0)
 #plt.show()

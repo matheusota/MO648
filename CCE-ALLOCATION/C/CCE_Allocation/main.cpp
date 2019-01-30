@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
                 else if(params.alg.compare("scheduling") == 0)
                     SchedulingModel::execute(users, params.R, numberUsers, measures);
 
-                else if(params.alg.compare("besteffort") == 0)
+                else if(params.alg.compare("baseline") == 0)
                     BestEffort::execute(users, params.R, numberUsers, measures);
 
                 else if(params.alg.compare("bruteforce") == 0)
@@ -101,6 +101,7 @@ void readCheckParams(Params &params, int argc, char *argv[])
     params.numberUsersUB = 0;
     params.metricType = "block";
     params.objFunc = 0;
+    params.heuristicTries = 100;
 
     // Read
     for(int i = 1; i < argc; i++){
@@ -168,6 +169,12 @@ void readCheckParams(Params &params, int argc, char *argv[])
             continue;
         }
 
+        else if(arg.compare("-h") == 0){
+            params.heuristicTries = atoi(next.c_str());
+            i++;
+            continue;
+        }
+
         else if(arg.compare("-f") == 0){
             params.objFunc = atoi(next.c_str());
             i++;
@@ -208,6 +215,8 @@ void generateOutput(Params &params, int numberUsers, Measures &measures){
             data << params.alg << " ; " << numberUsers << " ; " << measures.getResourceRate() << endl;
         if(params.metricType.compare("its") == 0)
             data << params.alg << " ; " << numberUsers << " ; " << measures.getIterations() << endl;
+        if(params.metricType.compare("time") == 0)
+            data << params.alg << " ; " << numberUsers << " ; " << measures.getTime() << endl;
         data.close();
     }
 }

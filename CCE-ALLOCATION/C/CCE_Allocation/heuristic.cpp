@@ -1,6 +1,7 @@
 #include "heuristic.h"
 vector<int> Heuristic::finalSolution;
 int Heuristic::best;
+int Heuristic::numberTries;
 
 // this is the main routine, which will apply randomization when trying to allocate a user
 bool Heuristic::tryToAllocate(User &user, SegTree &solutionTree, SegTree &counterTree){
@@ -11,8 +12,8 @@ bool Heuristic::tryToAllocate(User &user, SegTree &solutionTree, SegTree &counte
     for(auto b: user.begins){
         if(solutionTree.query(b, b + user.size) == 0){
             double c = counterTree.query(b, b + user.size);
-            sum += c;
-            beginsCount.push_back(make_pair(c, b));
+            sum += 1.0 / c; // the bigger c, the smaller the chance of being allocated at it
+            beginsCount.push_back(make_pair(1.0 / c, b));
         }
     }
 
@@ -26,8 +27,18 @@ bool Heuristic::tryToAllocate(User &user, SegTree &solutionTree, SegTree &counte
     uniform_real_distribution<> dis(0, 1);
     double p = dis(gen);
 
+    // we will use the beginsCount.first for the probabilistic distribution
+    for(int i = 0; i < beginsCount.size(); i++){
+        if(i > 0){
+            beginsCount[i].first = beginsCount[i - 1].first + (beginsCount[i].first / sum);
+        }
+        else{
+            beginsCount[i].first = beginsCount[i].first / sum;
+        }
+    }
+
     for(auto x : beginsCount){
-        if(p <= x.first / sum){
+        if(p <= x.first){
             // allocate the user
             for(int j = x.second; j < x.second + user.size; j++){
                 solutionTree.update(j, user.id);
@@ -118,10 +129,9 @@ void Heuristic::execute(vector<User> &users, int R, int numberUsers, Measures &m
     Heuristic::best = 99999;
 
     #pragma omp parallel for firstprivate(users, R, numberUsers) num_threads(10)
-    for(int i = 0; i < 100; i++){
+    for(int i = 0; i < numberTries; i++){
         Heuristic::runHeuristic(users, R, numberUsers, i);
     }
 
     measures.setSolution(Heuristic::finalSolution);
 }
-

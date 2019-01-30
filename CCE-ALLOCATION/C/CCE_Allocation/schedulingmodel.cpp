@@ -4,9 +4,6 @@ void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Meas
     // copy users
     vector<User> users(users2.begin(), users2.begin() + numberUsers);
 
-    //for(auto u: users)
-    //    u.printUser();
-
     // gurobi stuff
     map<int, map<int, GRBVar>> x;
     GRBEnv env = GRBEnv();

@@ -1,0 +1,22 @@
+./main.e -n 50 -s 30 -u 50 -r 40 -h 10 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 20 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 30 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 40 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 50 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 60 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 70 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 80 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 90 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 100 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 110 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 120 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 130 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 140 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 150 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 150 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 160 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 170 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 180 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 190 -a heuristic
+./main.e -n 50 -s 30 -u 50 -r 40 -h 200 -a heuristic
+

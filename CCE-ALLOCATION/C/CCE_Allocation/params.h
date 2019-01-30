@@ -14,6 +14,7 @@ class Params
         string outputFile;
         string metricType;
         int objFunc;
+        int heuristicTries;
 };
 
 #endif // PARAMS_H

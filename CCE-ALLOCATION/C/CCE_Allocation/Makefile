@@ -3,7 +3,7 @@
 #================= GUROBI =====================================================
 VERSION := $(shell gurobi_cl --version | cut -c 26,28,30 | head -n 1)
 FLAGVERSION := $(shell gurobi_cl --version | cut -c 26,28 | head -n 1)
-OPTS_FLAGS := -g -w -fforce-addr -funroll-loops -frerun-cse-after-loop \
+OPTS_FLAGS := -O3 -w -fforce-addr -funroll-loops -frerun-cse-after-loop \
       -finline-limit=100000 -frerun-loop-opt -fno-trapping-math \
 			-funsafe-math-optimizations -ffast-math -fno-math-errno \
 			-mtune=x86-64
