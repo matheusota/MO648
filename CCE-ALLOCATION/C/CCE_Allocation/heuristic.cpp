@@ -127,10 +127,11 @@ void Heuristic::runHeuristic(vector<User> users, int R, int numberUsers, unsigne
 // this will run the heuristic 100 times and return the best answer
 void Heuristic::execute(vector<User> &users, int R, int numberUsers, Measures &measures){
     Heuristic::best = 99999;
+    vector<User> users2(users.begin(), users.end());
 
-    #pragma omp parallel for firstprivate(users, R, numberUsers) num_threads(10)
+    #pragma omp parallel for firstprivate(users2, R, numberUsers) num_threads(10)
     for(int i = 0; i < numberTries; i++){
-        Heuristic::runHeuristic(users, R, numberUsers, i);
+        Heuristic::runHeuristic(users2, R, numberUsers, i);
     }
 
     measures.setSolution(Heuristic::finalSolution);

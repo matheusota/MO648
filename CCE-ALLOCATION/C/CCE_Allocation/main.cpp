@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
                 Simulator::simulate(params, numberUsers, SchedulingModel::execute);
             else if(params.alg.compare("scheduling2") == 0)
                 Simulator::simulate(params, numberUsers, SchedulingModel2::execute);
-            else if(params.alg.compare("besteffort") == 0)
+            else if(params.alg.compare("baseline") == 0)
                 Simulator::simulate(params, numberUsers, BestEffort::execute);
             else if(params.alg.compare("bruteforce") == 0)
                 Simulator::simulate(params, numberUsers, BruteForce::execute);
