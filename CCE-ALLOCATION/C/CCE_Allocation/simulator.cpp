@@ -127,7 +127,9 @@ void Simulator::runSimulationRound(Params &params, int numberUsers, void (*sched
 
     // tmp
     double totalBlock = 0;
-    double totalBlockCount = 0;
+    double totalFill = 0;
+    double count = 0;
+
     Heuristic::numberTries = params.heuristicTries;
 
     // create an array of UEs
@@ -204,17 +206,22 @@ void Simulator::runSimulationRound(Params &params, int numberUsers, void (*sched
             cout << "]" << endl;
             cout << "\t Blocked Users: " << measures.getBlockedUsers() << endl;
             totalBlock += measures.getBlockedRate();
-            totalBlockCount++;
+            totalFill += measures.getResourceRate();
+            count++;
 
             // write to file
             generateOutput(params, numberUsers, measures);
         }
     }
 
-    cout << "Total Block Rate: " << totalBlock/totalBlockCount << endl;
+    /*
+    cout << "Total Block Rate: " << totalBlock/count << endl;
     ofstream data;
     data.open ("output/heuristic.csv", std::ios_base::app);
     data << "heuristic ; " << params.heuristicTries << " ; " << totalBlock/totalBlockCount << endl;
+    */
+
+    generateOutputAll(params, numberUsers, totalBlock, totalFill, count);
 }
 
 void Simulator::simulate(Params &params, int numberUsers, void (*scheduler)(vector<User>&, int, int, Measures&)){
