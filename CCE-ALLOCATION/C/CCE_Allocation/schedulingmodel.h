@@ -5,6 +5,7 @@
 #include "user.h"
 #include <algorithm>
 #include "measures.h"
+#include "cutscallback.h"
 
 using namespace std;
 

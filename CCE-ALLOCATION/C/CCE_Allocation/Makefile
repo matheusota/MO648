@@ -55,7 +55,7 @@ GUROBI_LIB = -L$(GUROBI_DIR)/lib/  -lgurobi_c++ -lgurobi$(FLAGVERSION)  $(CPPSTD
 INC = $(GUROBI_INC)
 LIB = $(CC_LIB) $(GUROBI_LIB) 
 
-MYLIBSOURCES = main.cpp user.cpp filereader.cpp heuristic.cpp measures.cpp segtree.cpp brkgaheuristic.cpp population.cpp decoder.cpp schedulingmodel.cpp simulator.cpp besteffort.cpp bruteforce.cpp sppmodel.cpp reshuffle.cpp schedulingmodel2.cpp
+MYLIBSOURCES = main.cpp user.cpp filereader.cpp heuristic.cpp measures.cpp segtree.cpp brkgaheuristic.cpp population.cpp decoder.cpp schedulingmodel.cpp simulator.cpp besteffort.cpp bruteforce.cpp sppmodel.cpp reshuffle.cpp schedulingmodel2.cpp cutscallback.cpp
 MYOBJLIB = $(MYLIBSOURCES:.cpp=.o)
 
 EX =  main.cpp

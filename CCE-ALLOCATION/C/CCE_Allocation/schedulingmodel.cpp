@@ -10,9 +10,9 @@ void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Meas
     GRBModel model = GRBModel(env);
     model.set(GRB_StringAttr_ModelName, "CCE_SCH"); // gives a name to the problem
     model.set(GRB_IntAttr_ModelSense, GRB_MAXIMIZE); // says that lp is a minimization problem
-    model.set(GRB_DoubleParam_MIPGap, 0);
-    model.getEnv().set(GRB_IntParam_OutputFlag, 0);
-
+    //model.set(GRB_DoubleParam_MIPGap, 0);
+    //model.getEnv().set(GRB_IntParam_OutputFlag, 0);
+    //model.getEnv().set(GRB_IntParam_LazyConstraints, 1); //must set to use lazy contraints
 
     // solution variable
     vector<int> solution(R);
@@ -20,8 +20,9 @@ void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Meas
 
     // initialize gurobi variables
     for(auto user: users){
-        for(int j = 0; j < R; j++)
-            x[user.id][j] = model.addVar(0.0, 1.0, user.price, GRB_BINARY, "x[" + to_string(user.id) + "][" + to_string(j) + "]");
+        for(auto b : user.begins){
+            x[user.id][b] = model.addVar(0.0, 1.0, user.price, GRB_BINARY, "x[" + to_string(user.id) + "][" + to_string(b) + "]");
+        }
     }
     model.update();
 
@@ -29,8 +30,9 @@ void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Meas
     for(auto user: users){
         GRBLinExpr expr = 0;
 
-        for(int j = 0; j < R; j++)
-            expr += x[user.id][j];
+        for(auto b : user.begins){
+            expr += x[user.id][b];
+        }
 
         model.addConstr(expr <= 1);
     }
@@ -42,13 +44,17 @@ void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Meas
         for(auto user: users){
             int aux = max(0, j - user.size + 1);
 
-            for(int t = aux; t <= j; t++)
-                expr += x[user.id][t];
+            for(int t = aux; t <= j; t++){
+                if(find(user.begins.begin(), user.begins.end(), t) != user.begins.end()){
+                    expr += x[user.id][t];
+                }
+            }
         }
 
         model.addConstr(expr <= 1);
     }
 
+    /*
     // set to 0 the positions the user cannot start
     for(auto user: users){
         for(int j = 0; j < R; j++){
@@ -57,9 +63,14 @@ void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Meas
             }
         }
     }
+    */
 
     model.update();
     try {
+        // set callback
+        //CutsCallback cb = CutsCallback(users, R, x);
+        //model.setCallback(&cb);
+
         // now we solve it
         model.optimize();
         model.update();
@@ -68,11 +79,11 @@ void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Meas
 
         // create a vector from the solution
         for(auto user: users){
-            for(int j = 0; j < R; j++){
+            for(auto b : user.begins){
                 //cout << x[user.id][j].get(GRB_StringAttr_VarName) << " = " << x[user.id][j].get(GRB_DoubleAttr_X) << endl;
 
-                if(x[user.id][j].get(GRB_DoubleAttr_X) > 0.5){
-                    for(int t = j; t < j + user.size; t++)
+                if(x[user.id][b].get(GRB_DoubleAttr_X) > 0.5){
+                    for(int t = b; t < b + user.size; t++)
                         solution[t] = user.id;
                 }
             }

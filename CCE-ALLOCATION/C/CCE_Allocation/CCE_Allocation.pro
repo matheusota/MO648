@@ -19,7 +19,8 @@ SOURCES += \
     bruteforce.cpp \
     sppmodel.cpp \
     reshuffle.cpp \
-    schedulingmodel2.cpp
+    schedulingmodel2.cpp \
+    cutscallback.cpp
 
 HEADERS += \
     filereader.h \
@@ -40,6 +41,7 @@ HEADERS += \
     params.h \
     sppmodel.h \
     reshuffle.h \
-    schedulingmodel2.h
+    schedulingmodel2.h \
+    cutscallback.h
 
 DISTFILES +=

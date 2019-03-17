@@ -11,7 +11,8 @@ void SPPModel::execute(vector<User> &users2, int R, int numberUsers, Measures &m
     model.set(GRB_StringAttr_ModelName, "CCE_SPP"); // gives a name to the problem
     model.set(GRB_IntAttr_ModelSense, GRB_MAXIMIZE); // says that lp is a minimization problem
     model.set(GRB_DoubleParam_MIPGap, 0);
-    model.getEnv().set(GRB_IntParam_OutputFlag, 0);
+    model.set(GRB_IntParam_Cuts, 0);
+    //model.getEnv().set(GRB_IntParam_OutputFlag, 0);
 
     // solution variable
     vector<int> solution(R);
