@@ -53,6 +53,8 @@ void Reshuffle::execute(vector<User> &users2, int R, int numberUsers, Measures &
                 vector<int> markedUsersIds;
                 vector<int> tmp(solution);
 
+                /*
+                 * this is actually better than the paper!
                 // get users blocking this candidate
                 for(int j = users[i].begins[k]; j < users[i].begins[k] + users[i].size; j++){
                     if(tmp[j] != 0){
@@ -91,6 +93,58 @@ void Reshuffle::execute(vector<User> &users2, int R, int numberUsers, Measures &
 
                 // reshuffling was successful, update solution and keep going with other users
                 if(success){
+                    solution = tmp;
+                    slotsFilled += users[i].size;
+                    if(slotsFilled == R)
+                        solved = true;
+
+                    break;
+                }
+                */
+                bool success = true;
+
+                for(int j = users[i].begins[k]; j < users[i].begins[k] + users[i].size; j++){
+                    // user j is blocking curr user
+                    if(tmp[j] != 0){
+                        int removedId = tmp[j];
+
+                        // traverse to the left and to the right, removing this user
+                        int start = 0;
+                        int end = 0;
+                        int p = j;
+                        while(p >= 0 && tmp[p] == removedId){
+                            tmp[p] = -1;
+                            p--;
+                        }
+                        start = p + 1;
+
+                        p = j + 1;
+                        while(p < tmp.size() && tmp[p] == removedId){
+                            tmp[p] = -1;
+                            p++;
+                        }
+                        end = p - 1;
+
+                        // try to allocate user j somewhere else
+                        if(!Reshuffle::tryToAllocate(users[removedId - 1], tmp)){
+                            success = false;
+                            break;
+                        }
+                        else{
+                            for(int p = start; p <= end; p++){
+                                tmp[p] = 0;
+                            }
+                        }
+                    }
+                }
+
+                // reshuffling was successful, update solution and keep going with other users
+                if(success){
+                    // fill this candidate on tmp vector
+                    for(int j = users[i].begins[k]; j < users[i].begins[k] + users[i].size; j++)
+                        tmp[j] = users[i].id;
+
+                    // reshuffling was successful, update solution and keep going with other users
                     solution = tmp;
                     slotsFilled += users[i].size;
                     if(slotsFilled == R)
