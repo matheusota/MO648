@@ -1,4 +1,5 @@
 #include "schedulingmodel.h"
+bool SchedulingModel::shouldUseF = false;
 
 void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Measures &measures){
     // copy users
@@ -10,6 +11,7 @@ void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Meas
     GRBModel model = GRBModel(env);
     model.set(GRB_StringAttr_ModelName, "CCE_SCH"); // gives a name to the problem
     model.set(GRB_IntAttr_ModelSense, GRB_MAXIMIZE); // says that lp is a minimization problem
+    GRBVar f_bar;
     //model.set(GRB_DoubleParam_MIPGap, 0);
     //model.getEnv().set(GRB_IntParam_OutputFlag, 0);
     //model.getEnv().set(GRB_IntParam_LazyConstraints, 1); //must set to use lazy contraints
@@ -24,6 +26,8 @@ void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Meas
             x[user.id][b] = model.addVar(0.0, 1.0, user.price, GRB_BINARY, "x[" + to_string(user.id) + "][" + to_string(b) + "]");
         }
     }
+    if(shouldUseF)
+        f_bar = model.addVar(0.0, 1.0, -8, GRB_BINARY, "f_bar");
     model.update();
 
     // add "user can only be allocated once" constraint
@@ -52,6 +56,25 @@ void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Meas
         }
 
         model.addConstr(expr <= 1);
+    }
+
+    // define f
+    if(shouldUseF){
+        for(int j = 0; j < R; j++){
+            GRBLinExpr expr = 0;
+
+            for(auto user: users){
+                int aux = max(0, j - user.size + 1);
+
+                for(int t = aux; t <= j; t++){
+                    if(find(user.begins.begin(), user.begins.end(), t) != user.begins.end()){
+                        expr += x[user.id][t];
+                    }
+                }
+            }
+
+            model.addConstr(expr >= (1 - f_bar));
+        }
     }
 
     /*

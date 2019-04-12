@@ -12,6 +12,7 @@ using namespace std;
 class SchedulingModel
 {
     public:
+        static bool shouldUseF;
         static void execute(vector<User> &users2, int R, int numberUsers, Measures &measures);
 };
 

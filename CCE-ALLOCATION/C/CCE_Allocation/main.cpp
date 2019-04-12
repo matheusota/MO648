@@ -32,6 +32,11 @@ int main(int argc, char *argv[])
                 else if(params.alg.compare("scheduling") == 0)
                     SchedulingModel::execute(users, params.R, numberUsers, measures);
 
+                else if(params.alg.compare("scheduling3") == 0){
+                    SchedulingModel::shouldUseF = true;
+                    SchedulingModel::execute(users, params.R, numberUsers, measures);
+                }
+
                 else if(params.alg.compare("baseline") == 0)
                     BestEffort::execute(users, params.R, numberUsers, measures);
 
@@ -74,6 +79,10 @@ int main(int argc, char *argv[])
                 Simulator::simulate(params, numberUsers, SchedulingModel::execute);
             else if(params.alg.compare("scheduling2") == 0)
                 Simulator::simulate(params, numberUsers, SchedulingModel2::execute);
+            else if(params.alg.compare("scheduling3") == 0){
+                SchedulingModel::shouldUseF = true;
+                Simulator::simulate(params, numberUsers, SchedulingModel::execute);
+            }
             else if(params.alg.compare("baseline") == 0)
                 Simulator::simulate(params, numberUsers, BestEffort::execute);
             else if(params.alg.compare("bruteforce") == 0)

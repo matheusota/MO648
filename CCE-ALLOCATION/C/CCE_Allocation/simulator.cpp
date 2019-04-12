@@ -77,9 +77,9 @@ void Simulator::runUntilEmpty(Params &params, vector<User> &users, Measures &mea
             if(params.objFunc == 0)
                 usersAux[i].price = 1;
             else if(params.objFunc == 1)
-                usersAux[i].price = (1.0 / (i + 1));
+                usersAux[i].price = (1.0 / double(i + 1));
             else
-                usersAux[i].price = (1.0 / (i + 1)) * usersAux[i].size;
+                usersAux[i].price = (1.0 / double(i + 1)) * usersAux[i].size;
         }
 
         // run scheduling algorithm
