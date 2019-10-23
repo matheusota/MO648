@@ -78,8 +78,17 @@ void Simulator::runUntilEmpty(Params &params, vector<User> &users, Measures &mea
                 usersAux[i].price = 1;
             else if(params.objFunc == 1)
                 usersAux[i].price = (1.0 / double(i + 1));
-            else
+            else if(params.objFunc == 2){
                 usersAux[i].price = (1.0 / double(i + 1)) * usersAux[i].size;
+            }
+            else{
+                if(i < 25){
+                    users[i].price = 6.0 - (int((i + 1)/5));
+                }
+                else{
+                    users[i].price = -(int((i + 1)/5));
+                }
+            }
         }
 
         // run scheduling algorithm
@@ -128,6 +137,7 @@ void Simulator::runSimulationRound(Params &params, int numberUsers, void (*sched
     // tmp
     double totalBlock = 0;
     double totalFill = 0;
+    int totalTime = 0;
     double count = 0;
 
     Heuristic::numberTries = params.heuristicTries;
@@ -184,8 +194,17 @@ void Simulator::runSimulationRound(Params &params, int numberUsers, void (*sched
                     users[i].price = 1;
                 else if(params.objFunc == 1)
                     users[i].price = (1.0 / (i + 1));
-                else
-                    users[i].price = (1.0 / (i + 1)) * users[i].size;
+                else if(params.objFunc == 2){
+                    users[i].price = (1.0 / double(i + 1)) * users[i].size;
+                }
+                else{
+                    if(i < 25){
+                        users[i].price = 6.0 - (int((i + 1)/5));
+                    }
+                    else{
+                        users[i].price = -(int((i + 1)/5));
+                    }
+                }
             }
 
             Measures measures(numberUsers, params.R);
@@ -207,10 +226,11 @@ void Simulator::runSimulationRound(Params &params, int numberUsers, void (*sched
             cout << "\t Blocked Users: " << measures.getBlockedUsers() << endl;
             totalBlock += measures.getBlockedRate();
             totalFill += measures.getResourceRate();
+            totalTime += measures.getTime();
             count++;
 
             // write to file
-            generateOutput(params, numberUsers, measures);
+            //generateOutput(params, numberUsers, measures);
         }
     }
 
@@ -221,7 +241,7 @@ void Simulator::runSimulationRound(Params &params, int numberUsers, void (*sched
     data << "heuristic ; " << params.heuristicTries << " ; " << totalBlock/totalBlockCount << endl;
     */
 
-    generateOutputAll(params, numberUsers, totalBlock, totalFill, count);
+    generateOutputAll(params, numberUsers, totalBlock, totalFill, totalTime, count);
 }
 
 void Simulator::simulate(Params &params, int numberUsers, void (*scheduler)(vector<User>&, int, int, Measures&)){

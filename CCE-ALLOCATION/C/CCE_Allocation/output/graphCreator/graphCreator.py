@@ -25,13 +25,14 @@ i = 0
 for line in file:
     line = line.strip()
     line = line.split(";")
-    df.loc[i] = [line[0], int(line[1]), float(line[2])]
+    df.loc[i] = [line[0], int(line[1]), float(line[2]) / 1000.0]
     i += 1
 
 # set some plot parameters
-dashes = ['-', ':', '-.', '--']
+#dashes = ['-', ':', '-.', '--','-', ':', '-.', '--']
+dashes = ['-']
 markers = ['o', 's', '^', 'p', 'h']
-colors = ['blue', 'red', 'gray', 'green', 'brown']
+colors = ['blue', 'red', 'gray', 'green', 'brown', 'yellow']
 
 pgf_with_custom_preamble = {
 "font.family": "serif", # use serif/main font for text elements
@@ -68,10 +69,10 @@ for alg in algorithms:
         yErrs.append((1.96 / sqrt(len(xList))) * auxDf.std().tolist()[0])
 
     # plot the means for this algorithm    
-    ax.plot(xList, yList, dashes[idx], fillstyle = "full", color = colors[idx], markersize = 6, marker = markers[idx], label = alg, linewidth = 2.5)
+    ax.plot(xList, yList, dashes[idx % len(dashes)], fillstyle = "full", color = colors[idx % len(colors)], markersize = 6, marker = markers[idx % len(markers)], label = alg, linewidth = 2.5)
 
     # plot confidence interval
-    ax.errorbar(xList, yList, yerr = yErrs, fmt = "none", ecolor = colors[idx], capsize = 5, capthick = 2, linewidth = 2.5)
+    ax.errorbar(xList, yList, yerr = yErrs, fmt = "none", ecolor = colors[idx % len(colors)], capsize = 5, capthick = 2, linewidth = 2.5)
     idx += 1
 
 rcParams.update({'font.size': 12})

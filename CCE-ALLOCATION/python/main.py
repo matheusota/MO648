@@ -48,7 +48,7 @@ else:
     elif mode == "-quadratic":
         modelQuadratic(50, R, 10, False)
     elif mode == "-best":
-        modelBest(50, R, 10, False)
+        modelBest(35, R, 1, False)
     elif mode == "-best_round":
         modelBestRound(50, R, 10, False)
     elif mode == "-brute_force":

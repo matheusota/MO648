@@ -20,7 +20,8 @@ SOURCES += \
     sppmodel.cpp \
     reshuffle.cpp \
     schedulingmodel2.cpp \
-    cutscallback.cpp
+    cutscallback.cpp \
+    bestmodel.cpp
 
 HEADERS += \
     filereader.h \
@@ -42,6 +43,7 @@ HEADERS += \
     sppmodel.h \
     reshuffle.h \
     schedulingmodel2.h \
-    cutscallback.h
+    cutscallback.h \
+    bestmodel.h
 
 DISTFILES +=

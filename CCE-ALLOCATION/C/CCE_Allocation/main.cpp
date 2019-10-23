@@ -91,6 +91,8 @@ int main(int argc, char *argv[])
                 Simulator::simulate(params, numberUsers, SPPModel::execute);
             else if(params.alg.compare("reshuffle") == 0)
                 Simulator::simulate(params, numberUsers, Reshuffle::execute);
+            else if(params.alg.compare("best") == 0)
+                Simulator::simulate(params, numberUsers, BestModel::execute);
         }
     }
 
@@ -219,9 +221,9 @@ void generateOutput(Params &params, int numberUsers, Measures &measures){
         ofstream data;
         data.open ("output/" + params.outputFile, std::ios_base::app);
         if(params.metricType.compare("block") == 0)
-            data << params.alg << " ; " << numberUsers << " ; " << measures.getBlockedRate() << endl;
+            data << params.alg << "-f" << params.objFunc << " ; " << numberUsers << " ; " << measures.getBlockedRate() << endl;
         if(params.metricType.compare("util") == 0)
-            data << params.alg << " ; " << numberUsers << " ; " << measures.getResourceRate() << endl;
+            data << params.alg << "-f" << params.objFunc << " ; " << numberUsers << " ; " << measures.getResourceRate() << endl;
         if(params.metricType.compare("its") == 0)
             data << params.alg << " ; " << numberUsers << " ; " << measures.getIterations() << endl;
         if(params.metricType.compare("time") == 0)
@@ -231,16 +233,36 @@ void generateOutput(Params &params, int numberUsers, Measures &measures){
 }
 
 // creates an output file from totalBlock and totalFill
-void generateOutputAll(Params &params, int numberUsers, double totalBlock, double totalFill, double count){
+void generateOutputAll(Params &params, int numberUsers, double totalBlock, double totalFill, int totalTime, double count){
     if(params.metricType.compare("all") == 0){
         ofstream data1;
         data1.open("output/block.csv", std::ios_base::app);
-        data1 << params.alg << " ; " << numberUsers << " ; " << totalBlock/count << endl;
+        if(params.alg == "scheduling"){
+            data1 << params.alg << "-f" << params.objFunc << " ; " << numberUsers << " ; " << totalBlock/count << endl;
+        }
+        else{
+            data1 << params.alg << " ; " << numberUsers << " ; " << totalBlock/count << endl;
+        }
         data1.close();
 
         ofstream data2;
         data2.open("output/util.csv", std::ios_base::app);
-        data2 << params.alg << " ; " << numberUsers << " ; " << totalFill/count << endl;
+        if(params.alg == "scheduling"){
+            data2 << params.alg << "-f" << params.objFunc << " ; " << numberUsers << " ; " << totalFill/count << endl;
+        }
+        else{
+            data2 << params.alg << " ; " << numberUsers << " ; " << totalFill/count << endl;
+        }
         data2.close();
+
+        ofstream data3;
+        data3.open("output/time.csv", std::ios_base::app);
+        if(params.alg == "scheduling"){
+            data3 << params.alg << "-f" << params.objFunc << " ; " << numberUsers << " ; " << double(totalTime) / count << endl;
+        }
+        else{
+            data3 << params.alg << " ; " << numberUsers << " ; " << double(totalTime) / count << endl;
+        }
+        data3.close();
     }
 }

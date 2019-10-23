@@ -27,7 +27,7 @@ void SchedulingModel::execute(vector<User> &users2, int R, int numberUsers, Meas
         }
     }
     if(shouldUseF)
-        f_bar = model.addVar(0.0, 1.0, -8, GRB_BINARY, "f_bar");
+        f_bar = model.addVar(0.0, 1.0, -1000, GRB_BINARY, "f_bar");
     model.update();
 
     // add "user can only be allocated once" constraint

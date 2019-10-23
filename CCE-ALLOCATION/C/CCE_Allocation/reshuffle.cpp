@@ -31,11 +31,6 @@ void Reshuffle::execute(vector<User> &users2, int R, int numberUsers, Measures &
     vector<User> users(users2.begin(), users2.begin() + numberUsers);
     bool solved = false;
 
-    for(auto user: users){
-        cout << "user " << user.id << endl;
-        cout << "size " << user.size << endl;
-    }
-
     // initialize solution vector
     fill(solution.begin(), solution.end(), 0);
 
